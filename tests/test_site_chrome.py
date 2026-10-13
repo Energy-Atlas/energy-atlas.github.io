@@ -103,10 +103,11 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
     for selector in (".wiki-sidebar-header {", ".menu-column-header {", ".toc-heading {"):
         assert "height: var(--wiki-bar-height);" in block(css, selector)
 
-    # Subspace names are small uppercase mono labels.
+    # Subspace names are set in the primary sans, bold, in normal case.
     label_block = block(css, ".wiki-space-switcher-value,\n.wiki-space-switcher-option {")
-    assert "font-family: var(--font-mono);" in label_block
-    assert "text-transform: uppercase;" in label_block
+    assert "font-family: var(--font-sans);" in label_block
+    assert "font-weight: 700;" in label_block
+    assert "text-transform" not in label_block
 
 
 def test_wide_tables_use_table_local_horizontal_scrollers():
