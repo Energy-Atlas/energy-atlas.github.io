@@ -15,27 +15,27 @@ overview: true
 
 -   <span class="ui-icon" data-icon="quick-start"></span>[Quick Start](why-cities-need-energyatlas.md)
 
-    Install EnergyAtlas and build a first model.
+    Installation and your first model.
 
 -   <span class="ui-icon" data-icon="workflows"></span>[Workflows](../workflows/index.md)
 
-    Step-by-step GUI and shading guides.
+    Step-by-step GUI guides.
 
 -   <span class="ui-icon" data-icon="architecture"></span>[Architecture](../architecture/index.md)
 
-    Live diagrams of the pipeline.
+    System architecture diagrams powered by LikeC4.
 
 -   <span class="ui-icon" data-icon="python"></span>[Python](../python/index.md)
 
-    The Python connector reference.
+    Python connector docs.
 
 -   <span class="ui-icon" data-icon="web-api"></span>[WebAPI](../web-api/index.md)
 
-    Endpoints and web development.
+    Web API docs.
 
 -   <span class="ui-icon" data-icon="library"></span>[Library](../library/index.md)
 
-    Objects, enums, and resources.
+    Object definitions, enums, resources.
 
 -   <span class="ui-icon" data-icon="user-stories"></span>[User Stories](../user-stories/index.md)
 
@@ -43,7 +43,7 @@ overview: true
 
 -   <span class="ui-icon" data-icon="wiki-guide"></span>[Wiki Guide](../wiki-guide/index.md)
 
-    How to contribute to this Wiki.
+    How to contribute.
 
 </div>
 
