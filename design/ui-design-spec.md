@@ -92,7 +92,7 @@ The site root keeps redirecting to Quick Start › Welcome (`quick-start/index.m
 
   ```text
   EnergyAtlas
-  an agentic digital twin for city-scale energy insight.
+  agentic digital twins for city-scale energy insights.
   ```
 
   `EnergyAtlas` in Geist; the second line in Cormorant Garamond italic. Supporting copy is one or two sentences.
@@ -342,7 +342,7 @@ Example (the Wiki's Welcome headline, section 0.8):
 
 ```text
 EnergyAtlas
-an agentic digital twin for city-scale energy insight.
+agentic digital twins for city-scale energy insights.
 ```
 
 The second line uses Cormorant italic while `EnergyAtlas` remains Geist.
@@ -885,13 +885,13 @@ The Wiki's headline (section 0.8):
 
 ```text
 EnergyAtlas
-an agentic digital twin for city-scale energy insight.
+agentic digital twins for city-scale energy insights.
 ```
 
 Treatment:
 
 - `EnergyAtlas` — Geist
-- `an agentic digital twin for city-scale energy insight.` — Cormorant Garamond italic
+- `agentic digital twins for city-scale energy insights.` — Cormorant Garamond italic
 
 Use sparingly. The hero stays restrained and is followed immediately by the shared-border grid.
 

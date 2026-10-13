@@ -124,7 +124,7 @@ def test_welcome_page_has_hero_then_cover_then_subspace_grid():
     grid = welcome.index('<div class="ui-grid" markdown>')
     assert hero < cover < grid
     assert "<span>EnergyAtlas</span>" in welcome
-    assert "<em>an agentic digital twin for city-scale energy insight.</em>" in welcome
+    assert "<em>agentic digital twins for city-scale energy insights.</em>" in welcome
 
     cells = re.findall(r"^-   \[([^\]]+)\]\(", welcome.split('<div class="ui-grid" markdown>', 1)[1], re.MULTILINE)
     assert cells == [

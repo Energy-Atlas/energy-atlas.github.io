@@ -3,7 +3,7 @@ overview: true
 ---
 
 <div class="ui-hero">
-<h1><span>EnergyAtlas</span> <em>an agentic digital twin for city-scale energy insight.</em></h1>
+<h1><span>EnergyAtlas</span> <em>agentic digital twins for city-scale energy insights.</em></h1>
 <p>Welcome to the Wiki for <a href="http://EnergyAtlas.io/">EnergyAtlas.io</a>, a comprehensive guide to understanding and using the EnergyAtlas platform for Urban Building Energy Modeling (UBEM).</p>
 </div>
 

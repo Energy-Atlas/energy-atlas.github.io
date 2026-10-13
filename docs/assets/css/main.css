@@ -622,14 +622,9 @@ button {
     transition-delay: 0s, 120ms;
 }
 
+/* The tool row keeps its width and layout, so no control moves when the sidebar folds or unfolds. */
 :root[data-sidebar-collapsed="true"] .wiki-sidebar-tools {
-    width: max-content;
-    padding: 0 0.75rem;
     box-shadow: inset 0 1px 0 var(--ui-border-subtle), inset -1px 0 0 var(--ui-border-subtle);
-}
-
-:root[data-sidebar-collapsed="true"] .wiki-sidebar-tools .wiki-theme-toggle {
-    margin-right: 0.5rem;
 }
 
 :root[data-sidebar-collapsed="true"] .wiki-sidebar-collapse svg {

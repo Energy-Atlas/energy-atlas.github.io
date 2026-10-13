@@ -137,7 +137,9 @@ def test_desktop_sidebar_has_persistent_animated_collapse_control():
     css = read(CSS)
     assert ':root[data-sidebar-collapsed="true"] .wiki-sidebar' in css
     assert ':root[data-sidebar-collapsed="true"] .wiki-sidebar-tools' in css
-    assert "width: max-content;" in block(css, ':root[data-sidebar-collapsed="true"] .wiki-sidebar-tools {')
+    # The tool row keeps its width when the sidebar collapses, so its controls never move.
+    assert "width: var(--wiki-sidebar-width);" in block(css, ".wiki-sidebar-tools {")
+    assert "width" not in block(css, ':root[data-sidebar-collapsed="true"] .wiki-sidebar-tools {')
 
 
 def test_scroll_progress_owns_a_separate_full_width_bottom_row():
