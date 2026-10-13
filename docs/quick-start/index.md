@@ -15,35 +15,35 @@ overview: true
 
 -   <span class="ui-icon" data-icon="quick-start"></span>[Quick Start](why-cities-need-energyatlas.md)
 
-    Installation and your first model.
+    Installation and your first model
 
 -   <span class="ui-icon" data-icon="workflows"></span>[Workflows](../workflows/index.md)
 
-    Step-by-step GUI guides.
+    Step-by-step GUI guides
 
 -   <span class="ui-icon" data-icon="architecture"></span>[Architecture](../architecture/index.md)
 
-    System architecture diagrams powered by LikeC4.
+    System architecture powered by LikeC4
 
 -   <span class="ui-icon" data-icon="python"></span>[Python](../python/index.md)
 
-    Python connector docs.
+    Python connector docs
 
 -   <span class="ui-icon" data-icon="web-api"></span>[WebAPI](../web-api/index.md)
 
-    Web API docs.
+    Web API docs
 
 -   <span class="ui-icon" data-icon="library"></span>[Library](../library/index.md)
 
-    Object definitions, enums, resources.
+    Object definitions, enums, resources
 
 -   <span class="ui-icon" data-icon="user-stories"></span>[User Stories](../user-stories/index.md)
 
-    EnergyAtlas in practice.
+    EnergyAtlas in practice
 
 -   <span class="ui-icon" data-icon="wiki-guide"></span>[Wiki Guide](../wiki-guide/index.md)
 
-    How to contribute.
+    How to contribute
 
 </div>
 
