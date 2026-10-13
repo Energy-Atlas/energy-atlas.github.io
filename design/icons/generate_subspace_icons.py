@@ -205,13 +205,17 @@ def thin(pts, keep_every=2):
 # ---------------------------------------------------------------------------------------------------------------------
 
 def icon_workflows(rng):
+    """A merge, as in a git graph: two commits whose branches join and run into a merge commit."""
     ink, accent = [], []
-    # Start: an open ring at the lower left, drawn as one loop that just overlaps itself.
-    ink.append(ink_stroke(arc_points(5.2, 17.0, 2.2, 200, 548), rng, width=BASE_WIDTH * 0.95))
-    # The route: one loose S from the start, dipping and rising to the destination.
-    ink.append(ink_stroke([(8.3, 16.3), (11.0, 16.9), (13.4, 15.2), (13.6, 11.6), (14.9, 8.9), (16.9, 7.7)], rng))
-    # Destination: a accent point.
-    accent.append(ink_dot(19.1, 6.9, 1.6, rng))
+    ring_w = BASE_WIDTH * 0.95
+    # Two commits at the top: the trunk's at the left, the branch's at the right.
+    ink.append(ink_stroke(arc_points(6.4, 5.0, 2.1, 200, 548), rng, width=ring_w))
+    ink.append(ink_stroke(arc_points(17.6, 6.4, 2.1, 160, 508), rng, width=ring_w))
+    # The trunk runs straight down; the branch swings across and joins it.
+    ink.append(ink_stroke([(6.4, 8.0), (6.3, 12.4), (6.45, 16.4)], rng, taper=(0.8, 0.8)))
+    ink.append(ink_stroke([(17.5, 9.4), (16.9, 12.6), (12.6, 14.3), (7.6, 15.9)], rng, taper=(0.75, 0.8)))
+    # The merge commit, in the accent.
+    accent.append(ink_dot(6.5, 19.4, 2.0, rng))
     return ink, accent
 
 
