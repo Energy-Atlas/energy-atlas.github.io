@@ -43,36 +43,34 @@ def test_theme_script_is_loaded_before_plotly_renderer():
     assert config.index(theme_script) < config.index(plotly_renderer)
 
 
-def test_theme_tokens_exist_in_both_asset_copies():
-    for css_path in ("assets/css/main.css", "docs/assets/css/main.css"):
-        css = read(css_path)
+def test_theme_tokens_exist_for_both_themes():
+    css = read("docs/assets/css/main.css")
 
-        assert ':root[data-theme="light"]' in css
-        assert "--plotly-font-color" in css
-        assert "--theme-toggle-track-bg" in css
-        assert ".wiki-theme-toggle" in css
-        assert "--wiki-theme-toggle-width: 64px;" in css
-        assert ".wiki-theme-toggle-thumb" in css
-        assert ':root[data-theme="dark"] .wiki-theme-toggle-thumb' in css
-        assert '.wiki-theme-toggle[data-theme="dark"] .wiki-theme-toggle-thumb' not in css
-        assert "z-index: 1;" in css
-        assert "z-index: 2;" in css
-        assert ".wiki-topbar-icon-button" in css
-        assert "border-radius: 50%;" in css
-        assert "--wiki-sidebar-width: 304px;" in css
-        assert "--wiki-article-max-width: 960px;" in css
-        assert ".wiki-space-switcher" in css
-        assert "scrollbar-gutter: stable;" in css
-        assert ".wiki-sidebar-tools" in css
-        assert "background: var(--theme-toggle-track-bg);" in css
-        assert ".wiki-sidebar-tool .wiki-sidebar-tool-github-icon" in css
-        assert "fill: currentColor;" in css
-        assert "stroke: none;" in css
-        active_link_block = css.split(".wiki-space-tree-link.active {", 1)[1].split("}", 1)[0]
-        assert "box-shadow" not in active_link_block
-        sidebar_header_block = css.split(".wiki-sidebar-header {", 1)[1].split("}", 1)[0]
-        assert "border-bottom" not in sidebar_header_block
-        assert '[data-theme="light"] .code-block-body .n' in css
+    assert ':root[data-theme="light"]' in css
+    assert "--plotly-font-color" in css
+    assert ".wiki-theme-toggle" in css
+    assert "--wiki-theme-toggle-width: 4rem;" in css
+    assert ".wiki-theme-toggle-thumb" in css
+    assert ':root[data-theme="dark"] .wiki-theme-toggle-thumb' in css
+    assert '.wiki-theme-toggle[data-theme="dark"] .wiki-theme-toggle-thumb' not in css
+    assert "z-index: 1;" in css
+    assert "z-index: 2;" in css
+    assert "--wiki-sidebar-width: 17rem;" in css
+    assert "--wiki-article-max-width: 60rem;" in css
+    assert ".wiki-space-switcher" in css
+    assert "scrollbar-gutter: stable;" in css
+    assert ".wiki-sidebar-tools" in css
+    assert ".wiki-sidebar-tool .wiki-sidebar-tool-github-icon" in css
+    assert "fill: currentColor;" in css
+    assert "stroke: none;" in css
+
+    # The active page is marked by an accent edge, not a filled block (spec 0.7).
+    active_link_block = css.split(".wiki-space-tree-link.active {", 1)[1].split("}", 1)[0]
+    assert "box-shadow: inset 2px 0 0 var(--ui-accent);" in active_link_block
+    assert "background" not in active_link_block
+
+    syntax = read("docs/assets/css/syntax.css")
+    assert '[data-theme="light"] .code-block-body .n' in syntax
 
 
 def test_theme_toggle_controller_persists_choice_and_announces_changes():

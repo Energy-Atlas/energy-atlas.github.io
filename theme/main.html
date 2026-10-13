@@ -15,19 +15,11 @@
         {% set page_description = "Documentation page" %}
     {% endif %}
 
+    {#- Breadcrumbs: the page's full ancestry in the navigation, subspace first (design/ui-design-spec.md, 0.11). -#}
     {% set breadcrumbs = [] %}
-    {% if nav %}
-        {% for nav_item in nav %}
-            {% if nav_item.active %}
-                {% set _ = breadcrumbs.append(nav_item.title) %}
-            {% elif nav_item.children %}
-                {% for nav_child in nav_item.children %}
-                    {% if nav_child.active %}
-                        {% set _ = breadcrumbs.append(nav_item.title) %}
-                        {% set _ = breadcrumbs.append(nav_child.title) %}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+    {% if page and page.ancestors %}
+        {% for ancestor in page.ancestors | reverse %}
+            {% set _ = breadcrumbs.append(ancestor.title) %}
         {% endfor %}
     {% endif %}
 
@@ -35,13 +27,13 @@
         {% if breadcrumbs %}
             <p class="menu-paragraph wiki-breadcrumbs">
                 {% for crumb in breadcrumbs %}
-                    {{ crumb }}{% if not loop.last %} / {% endif %}
+                    <span>{{ crumb }}</span>{% if not loop.last %}<span class="wiki-breadcrumbs-sep" aria-hidden="true">/</span>{% endif %}
                 {% endfor %}
             </p>
         {% endif %}
     </div>
 
-    <div class="md-content">
+    <div class="md-content{% if page and page.meta and page.meta.overview %} wiki-overview{% endif %}">
         {{ page.content }}
         <footer class="wiki-page-footer">
             {% if page.meta.previous_article or page.meta.next_article %}

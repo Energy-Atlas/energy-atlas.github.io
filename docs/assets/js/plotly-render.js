@@ -1,5 +1,5 @@
 (() => {
-    const FONT_FAMILY = '"Roboto Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    const FONT_FAMILY = '"Geist", "Inter", "Helvetica Neue", Arial, sans-serif';
 
     const getCssValue = (name, fallback) => {
         const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();

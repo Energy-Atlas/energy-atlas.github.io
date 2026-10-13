@@ -4,8 +4,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+CSS = "docs/assets/css/main.css"
+
+
 def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
+
+
+def block(css: str, selector: str) -> str:
+    return css.split(selector, 1)[1].split("}", 1)[0]
 
 
 def test_base_template_uses_sidebar_icon_as_svg_favicon():
@@ -81,26 +88,25 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
         assert f'data-icon-source="lucide" data-icon-name="{icon_name}"' in base
     assert 'data-icon-source="simple-icons" data-icon-name="python"' in base
 
-    for css_path in ("assets/css/main.css", "docs/assets/css/main.css"):
-        css = read(css_path)
-        brand_block = css.split(".wiki-sidebar-brand-name,", 1)[1].split("}", 1)[0]
-        value_block = css.split(".wiki-space-switcher-value {", 1)[1].split("}", 1)[0]
-        assert ".wiki-space-icon {" in css
-        assert "font-size: var(--font-size-lg);" in brand_block
-        assert "font-size: var(--font-size-base);" in value_block
-        assert "width: 24px;" in css
-        assert "--wiki-space-switcher-row-height: 56px;" in css
-        summary_block = css.split(".wiki-space-switcher-summary {", 1)[1].split("}", 1)[0]
-        option_block = css.split(".wiki-space-switcher-option {", 1)[1].split("}", 1)[0]
-        assert "font-size: var(--font-size-base);" in option_block
-        for block in (summary_block, option_block):
-            assert "height: var(--wiki-space-switcher-row-height);" in block
-            assert "min-height: var(--wiki-space-switcher-row-height);" in block
-        assert ".wiki-space-icon-python {" in css
-        assert ".wiki-space-icon-architecture {" in css
-        assert "fill: currentColor;" in css
-        assert ".wiki-space-switcher-option-main {" in css
-        assert ".wiki-space-switcher-check {" in css
+    css = read(CSS)
+    assert ".wiki-space-icon {" in css
+    assert ".wiki-space-icon-python {" in css
+    assert ".wiki-space-icon-architecture {" in css
+    assert "fill: currentColor;" in css
+    assert ".wiki-space-switcher-option-main {" in css
+    assert ".wiki-space-switcher-check {" in css
+    assert "--wiki-bar-height: 3.5rem;" in css
+
+    # The switcher row lines up with the brand row and the article's breadcrumb bar (spec 0.7).
+    summary_block = block(css, ".wiki-space-switcher-summary {")
+    assert "height: var(--wiki-bar-height);" in summary_block
+    for selector in (".wiki-sidebar-header {", ".menu-column-header {", ".toc-heading {"):
+        assert "height: var(--wiki-bar-height);" in block(css, selector)
+
+    # Subspace names are small uppercase mono labels.
+    label_block = block(css, ".wiki-space-switcher-value,\n.wiki-space-switcher-option {")
+    assert "font-family: var(--font-mono);" in label_block
+    assert "text-transform: uppercase;" in label_block
 
 
 def test_wide_tables_use_table_local_horizontal_scrollers():
@@ -111,11 +117,10 @@ def test_wide_tables_use_table_local_horizontal_scrollers():
     assert "wrapper.scrollWidth > wrapper.clientWidth" in base
     assert "wrapper.setAttribute('aria-label', 'Scrollable table')" in base
 
-    for css_path in ("assets/css/main.css", "docs/assets/css/main.css"):
-        css = read(css_path)
-        assert ".table-scroll-wrapper-wide > table" in css
-        assert "width: max-content;" in css
-        assert "overscroll-behavior-inline: contain;" in css
+    css = read(CSS)
+    assert ".table-scroll-wrapper-wide > table" in css
+    assert "width: max-content;" in css
+    assert "overscroll-behavior-inline: contain;" in css
 
 
 def test_desktop_sidebar_has_persistent_animated_collapse_control():
@@ -129,11 +134,10 @@ def test_desktop_sidebar_has_persistent_animated_collapse_control():
     assert "syncCollapsedAccessibility" in shell
     assert "energyatlas-wiki-sidebar-collapsed" in shell
 
-    for css_path in ("assets/css/main.css", "docs/assets/css/main.css"):
-        css = read(css_path)
-        assert ':root[data-sidebar-collapsed="true"] .wiki-sidebar' in css
-        assert ':root[data-sidebar-collapsed="true"] .wiki-sidebar-tools' in css
-        assert "--wiki-sidebar-tools-collapsed-width: 216px;" in css
+    css = read(CSS)
+    assert ':root[data-sidebar-collapsed="true"] .wiki-sidebar' in css
+    assert ':root[data-sidebar-collapsed="true"] .wiki-sidebar-tools' in css
+    assert "width: max-content;" in block(css, ':root[data-sidebar-collapsed="true"] .wiki-sidebar-tools {')
 
 
 def test_scroll_progress_owns_a_separate_full_width_bottom_row():
@@ -145,10 +149,10 @@ def test_scroll_progress_owns_a_separate_full_width_bottom_row():
     assert "scrollableHeight > 0" in base
     assert "scrollProgressTrack.setAttribute('aria-valuenow'" in base
 
-    for css_path in ("assets/css/main.css", "docs/assets/css/main.css"):
-        css = read(css_path)
-        assert "--wiki-scroll-progress-height: 4px;" in css
-        assert "bottom: var(--wiki-scroll-progress-height);" in css
-        progress_block = css.split(".scroll-progress-bar {", 1)[1].split("}", 1)[0]
-        assert "height: var(--wiki-scroll-progress-height);" in progress_block
-        assert "z-index: 3800;" in progress_block
+    css = read(CSS)
+    assert "--wiki-scroll-progress-height: 2px;" in css
+    assert "bottom: var(--wiki-scroll-progress-height);" in css
+    progress_block = block(css, ".scroll-progress-bar {")
+    assert "height: var(--wiki-scroll-progress-height);" in progress_block
+    assert "bottom: 0;" in progress_block
+    assert "z-index: 3800;" in progress_block

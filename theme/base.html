@@ -40,199 +40,13 @@
         })();
     </script>
     
+    {#- Preload the two fonts every page uses (assets/css/fonts.css), so the first frame is drawn without a font swap. -#}
+    <link rel="preload" href="{{ 'assets/fonts/geist-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="{{ 'assets/fonts/geist-mono-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin />
     {% for path in config.extra_css %}
         <link rel="stylesheet" href="{{ path | url }}" />
     {% endfor %}
     
-    <style>
-        .wiki-title-row {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .wiki-app-icon {
-            width: 32px;
-            height: 32px;
-        }
-
-        .wiki-grid {
-            grid-template-columns: minmax(0, var(--wiki-article-max-width)) var(--wiki-page-toc-width);
-        }
-
-        .wiki-grid-full-width {
-            grid-template-columns: minmax(0, 1fr);
-        }
-
-        .wiki-breadcrumbs {
-            font-size: var(--font-size-xs);
-            color: var(--text-muted);
-        }
-
-        /* MkDocs content styling */
-        .md-content {
-            color: var(--text-light);
-        }
-
-        .md-content h1,
-        .md-content h2,
-        .md-content h3,
-        .md-content h4,
-        .md-content h5,
-        .md-content h6 {
-            color: var(--text-dark);
-            font-family: var(--font-family);
-            font-variation-settings: 'wdth' 150, 'wght' 500;
-            letter-spacing: -0.02em;
-            margin-top: var(--spacing-lg);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .md-content h1 {
-            font-size: var(--font-size-3xl);
-        }
-
-        .md-content h2 {
-            font-size: var(--font-size-2xl);
-        }
-
-        .md-content h3 {
-            font-size: var(--font-size-xl);
-        }
-
-        .md-content h4 {
-            font-size: var(--font-size-lg);
-        }
-
-        .md-content p {
-            margin-bottom: var(--spacing-md);
-            line-height: 1.6;
-        }
-
-        .md-content ul,
-        .md-content ol {
-            margin-bottom: var(--spacing-md);
-            padding-left: var(--spacing-lg);
-        }
-
-        .md-content li {
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .md-content a {
-            color: var(--accent-color);
-            text-decoration: none;
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: var(--border-radius-sm);
-        }
-
-        .md-content a:hover {
-            background: var(--accent-color);
-            color: var(--link-hover-text);
-            text-decoration: none;
-        }
-
-        .md-content code {
-            background: var(--bg-dark-surface);
-
-            border-radius: var(--border-radius-sm);
-            padding: 2px 6px;
-            font-family: var(--font-family-mono);
-            font-size: var(--font-size-sm);
-            color: var(--text-dark);
-        }
-
-        .md-content pre {
-            background: var(--bg-dark-surface);
-           
-            border-radius: var(--border-radius);
-            padding: var(--spacing-md);
-            overflow: visible;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .md-content pre code {
-            background: transparent;
-            border: none;
-            padding: 0;
-        }
-
-        .md-content blockquote {
-            border-left: 4px solid var(--accent-color);
-            padding-left: var(--spacing-md);
-            margin-left: 0;
-            margin-bottom: var(--spacing-md);
-            color: var(--text-light);
-        }
-
-        .md-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .md-content table th,
-        .md-content table td {
-            border: 1px solid var(--border-color);
-            padding: var(--spacing-sm);
-            text-align: left;
-        }
-
-        .md-content table th {
-            background: var(--bg-dark-surface);
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        .md-content table td {
-            background: var(--bg-light);
-        }
-
-        /* Navigation links styling */
-        .wiki-nav-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: var(--font-size-sm);
-            font-weight: 500;
-            font-variation-settings: 'wdth' 150, 'wght' 500;
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: var(--border-radius-sm);
-            line-height: 1.2;
-        }
-
-        .wiki-nav-link:hover,
-        .wiki-nav-link.active {
-            background: var(--accent-color);
-            color: var(--link-hover-text);
-            text-decoration: none;
-        }
-
-        .wiki-nav-link.active {
-            font-weight: 600;
-        }
-
-        .wiki-nav-link-icon {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            border: 1px solid var(--accent-color);
-            background: rgba(18, 93, 174, 0.2);
-            flex-shrink: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-color);
-        }
-
-        .wiki-nav-link-icon svg {
-            width: 10px;
-            height: 10px;
-            display: block;
-        }
-    </style>
 </head>
 {% macro render_space_icon(title) %}
     {% if title == 'Quick Start' %}
@@ -535,16 +349,6 @@
         <script src="{{ 'assets/js/likec4-embed.js' | url }}" defer></script>
     {% endif %}
     <script>
-        // Immediate check to ensure content is visible (runs before DOMContentLoaded)
-        (function() {
-            var contentColumn = document.getElementById('main-content');
-            if (contentColumn) {
-                // Ensure visible immediately - critical for back button
-                contentColumn.style.opacity = '1';
-                contentColumn.style.visibility = 'visible';
-            }
-        })();
-
         document.addEventListener('DOMContentLoaded', function () {
             var devNoticeKey = 'energyatlas-wiki-dev-notice-dismissed';
             var devNotice = document.getElementById('wiki-dev-notice');
@@ -790,81 +594,6 @@
                 });
             });
 
-            // Page transition animation for right pane
-            var contentColumn = document.getElementById('main-content');
-            if (contentColumn) {
-                // Ensure content is visible by default (critical for back navigation)
-                contentColumn.style.opacity = '1';
-                contentColumn.style.visibility = 'visible';
-                
-                function fadeInContent() {
-                    contentColumn.style.opacity = '1';
-                    contentColumn.style.visibility = 'visible';
-                    contentColumn.style.transition = 'opacity 0.3s ease-in';
-                }
-
-                function fadeOutContent() {
-                    contentColumn.style.opacity = '0';
-                    contentColumn.style.transition = 'opacity 0.2s ease-out';
-                }
-
-                // Handle page show (fires on both initial load and back/forward navigation)
-                window.addEventListener('pageshow', function(event) {
-                    // Always show content - especially important for back button
-                    if (event.persisted) {
-                        // Page restored from cache (back button) - show immediately
-                        fadeInContent();
-                    } else {
-                        // Initial load - fade in
-                        contentColumn.style.opacity = '0';
-                        setTimeout(fadeInContent, 50);
-                    }
-                });
-
-                // Also ensure visibility on DOMContentLoaded
-                if (document.readyState === 'loading') {
-                    // Wait for DOM
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // Check if page was restored from cache
-                        if (performance.navigation && performance.navigation.type === 2) {
-                            // Back/forward navigation
-                            fadeInContent();
-                        } else {
-                            // Initial load
-                            contentColumn.style.opacity = '0';
-                            setTimeout(fadeInContent, 50);
-                        }
-                    });
-                } else {
-                    // DOM already loaded
-                    fadeInContent();
-                }
-
-                // Fade out on navigation (internal links only)
-                var navLinks = document.querySelectorAll('.menu-link, .wiki-nav-link, .md-content a');
-                navLinks.forEach(function(link) {
-                    link.addEventListener('click', function(e) {
-                        var href = this.getAttribute('href');
-                        // Don't fade out if modifier keys are pressed (shift-click, ctrl-click, cmd-click = new tab)
-                        var isModifierPressed = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-                        
-                        // Only animate for internal page navigation (not new tabs, anchors, external, or special links)
-                        if (href && 
-                            !isModifierPressed &&
-                            !href.startsWith('#') && 
-                            !href.startsWith('http://') && 
-                            !href.startsWith('https://') && 
-                            !href.startsWith('mailto:') && 
-                            !href.startsWith('tel:') &&
-                            !this.hasAttribute('target')) {
-                            
-                            // Small delay to allow navigation
-                            setTimeout(fadeOutContent, 10);
-                        }
-                    });
-                });
-            }
-
             // Scroll progress bar
             var scrollProgress = document.getElementById('scroll-progress');
             if (scrollProgress) {
@@ -902,7 +631,12 @@
                     
                     // Find the current heading
                     var currentHeading = null;
-                    for (var i = headings.length - 1; i >= 0; i--) {
+                    // At the bottom of the page the last heading is current, even if it never reaches the offset.
+                    var atBottom = window.innerHeight + scrollTop >= document.documentElement.scrollHeight - 2;
+                    if (atBottom && headings.length) {
+                        currentHeading = headings[headings.length - 1];
+                    }
+                    for (var i = headings.length - 1; i >= 0 && !currentHeading; i--) {
                         var heading = headings[i];
                         var headingTop = heading.getBoundingClientRect().top + scrollTop;
                         if (headingTop <= scrollTop + offset) {

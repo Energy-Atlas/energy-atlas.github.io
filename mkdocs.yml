@@ -151,6 +151,7 @@ plugins:
 
 markdown_extensions:
   - attr_list
+  - md_in_html
   - pymdownx.highlight:
       anchor_linenums: false
       linenums: true
@@ -171,8 +172,9 @@ hooks:
   - hooks/wiki_metadata.py
 
 extra_css:
+  - assets/css/fonts.css
   - assets/css/main.css
-  - assets/css/statusBar.css
+  - assets/css/syntax.css
 
 extra_javascript:
   - assets/js/mathjax-config.js

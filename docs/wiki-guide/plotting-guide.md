@@ -10,7 +10,7 @@ Use the [Interactive Plotting Playground](plotting-playground.md) to build and p
 These defaults are set by the renderer to make charts look good on a dark page:
 
 - Background is transparent (`paper_bgcolor` and `plot_bgcolor`).
-- Font uses the site family (`"Roboto Flex", ...`) and light text color (`#e5e5e5`).
+- Font uses the site family (`"Geist", ...`) and the theme's text color (`#e5e5e5` in dark, `#18202c` in light).
 - Axis grid lines are subtle (`rgba(255,255,255,0.12)`).
 - Legend is moved below the chart (horizontal) to reduce label overlap.
 - Chart margins include extra bottom space for the legend.

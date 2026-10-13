@@ -9,11 +9,7 @@ A documentation wiki built with MkDocs, styled to match the EnergyAtlas design s
    pip install -r requirements.txt
    ```
 
-2. **Ensure assets are in docs directory:**
-   The `assets` folder must exist in the `docs/` directory for MkDocs to find CSS and images.
-   If you make changes to files in the root `assets/` folder, copy them to `docs/assets/`.
-
-3. **Serve locally:**
+2. **Serve locally:**
    ```bash
    mkdocs serve
    ```
@@ -24,7 +20,7 @@ A documentation wiki built with MkDocs, styled to match the EnergyAtlas design s
    - Hard refresh your browser (Ctrl+F5)
    - Check browser console for 404 errors on CSS files
 
-4. **Build static site:**
+3. **Build static site:**
    ```bash
    mkdocs build
    ```
@@ -35,7 +31,7 @@ A documentation wiki built with MkDocs, styled to match the EnergyAtlas design s
 ```
 .
 ├── docs/                         # Published wiki source
-│   ├── assets/                   # Shared CSS, JavaScript, images, and icons
+│   ├── assets/                   # CSS, JavaScript, images, icons, and self-hosted fonts
 │   ├── quick-start/              # Welcome and onboarding
 │   ├── workflows/                # Input/output, GUI, and shading workflows
 │   ├── python/                   # Python reference
@@ -43,11 +39,8 @@ A documentation wiki built with MkDocs, styled to match the EnergyAtlas design s
 │   ├── library/                  # Objects, enums, and resource libraries
 │   ├── user-stories/             # User stories
 │   └── wiki-guide/               # Contribution guides and site map
-├── assets/                  # Theme asset source mirror
-│   ├── css/
-│   │   ├── main.css        # Main stylesheet (EnergyAtlas design system)
-│   │   └── statusBar.css   # Status bar styles
-│   └── images/             # Images and icons
+├── design/
+│   └── ui-design-spec.md   # UI design specification (not published)
 ├── theme/                  # Custom MkDocs theme
 │   ├── base.html          # Base template
 │   └── main.html          # Main content template
@@ -57,12 +50,12 @@ A documentation wiki built with MkDocs, styled to match the EnergyAtlas design s
 
 ## Design
 
-The wiki uses a custom theme that matches the EnergyAtlas design system:
+The wiki uses a custom theme that follows `design/ui-design-spec.md` (its section 0 records this site's decisions):
 
-- **Dark theme** with EnergyAtlas color palette
-- **Two-column layout**: Navigation sidebar + main content
-- **Card-based content** sections
-- **Roboto Flex** typography
+- **Light and dark themes** that follow the system preference, with a toggle
+- **Sidebar shell**: subspace switcher and page tree at the left, a framed article, and the table of contents
+- **Grid framing**: square, flat surfaces bounded by thin rules; numbered section strips on overview pages
+- **Geist, Geist Mono, and Cormorant Garamond**, self-hosted in `docs/assets/fonts/`
 - **Responsive design** for mobile and desktop
 
 ## Customization
@@ -75,9 +68,10 @@ The wiki uses a custom theme that matches the EnergyAtlas design system:
 
 ### Styling
 
-- Main styles: `assets/css/main.css`
+- Main styles: `docs/assets/css/main.css` (tokens at the top); fonts in `fonts.css`; code colours in `syntax.css`
 - Theme templates: `theme/base.html` and `theme/main.html`
-- CSS variables are defined in `main.css` for easy customization
+- UI changes follow `design/ui-design-spec.md`
+- Overview pages turn on numbered section strips with `overview: true` in their front matter
 
 ### Content Structure
 
@@ -96,7 +90,7 @@ Pages can be structured with markdown headers. The theme will automatically styl
 When running `mkdocs serve`, the site will automatically reload when you make changes to:
 - Markdown files in `docs/`
 - Theme templates in `theme/`
-- CSS files in `assets/css/`
+- CSS files in `docs/assets/css/`
 - Configuration in `mkdocs.yml`
 
 ### Building for Production

@@ -1,0 +1,280 @@
+/*
+ * Syntax highlighting for Pygments output (pymdownx.highlight): Monokai in the dark theme, a light variant in the light
+ * theme. Code colouring keeps its own palette; it is not UI accent (design/ui-design-spec.md, section 0.5).
+ */
+
+.code-block-body .hll { background-color: #49483e }
+.code-block-body .c { color: #959077 }
+.code-block-body .err { color: #ED007E; background-color: #1E0010 }
+.code-block-body .esc { color: #F8F8F2 }
+.code-block-body .g { color: #F8F8F2 }
+.code-block-body .k { color: #66D9EF }
+.code-block-body .l { color: #AE81FF }
+.code-block-body .n { color: #F8F8F2 }
+.code-block-body .o { color: #FF4689 }
+.code-block-body .x { color: #F8F8F2 }
+.code-block-body .p { color: #F8F8F2 }
+.code-block-body .ch { color: #959077 }
+.code-block-body .cm { color: #959077 }
+.code-block-body .cp { color: #959077 }
+.code-block-body .cpf { color: #959077 }
+.code-block-body .c1 { color: #959077 }
+.code-block-body .cs { color: #959077 }
+.code-block-body .gd { color: #FF4689 }
+.code-block-body .ge { color: #F8F8F2; font-style: italic }
+.code-block-body .ges { color: #F8F8F2; font-weight: bold; font-style: italic }
+.code-block-body .gr { color: #F8F8F2 }
+.code-block-body .gh { color: #F8F8F2 }
+.code-block-body .gi { color: #A6E22E }
+.code-block-body .go { color: #66D9EF }
+.code-block-body .gp { color: #FF4689; font-weight: bold }
+.code-block-body .gs { color: #F8F8F2; font-weight: bold }
+.code-block-body .gu { color: #959077 }
+.code-block-body .gt { color: #F8F8F2 }
+.code-block-body .kc { color: #66D9EF }
+.code-block-body .kd { color: #66D9EF }
+.code-block-body .kn { color: #FF4689 }
+.code-block-body .kp { color: #66D9EF }
+.code-block-body .kr { color: #66D9EF }
+.code-block-body .kt { color: #66D9EF }
+.code-block-body .ld { color: #E6DB74 }
+.code-block-body .m { color: #AE81FF }
+.code-block-body .s { color: #E6DB74 }
+.code-block-body .na { color: #A6E22E }
+.code-block-body .nb { color: #F8F8F2 }
+.code-block-body .nc { color: #A6E22E }
+.code-block-body .no { color: #66D9EF }
+.code-block-body .nd { color: #A6E22E }
+.code-block-body .ni { color: #F8F8F2 }
+.code-block-body .ne { color: #A6E22E }
+.code-block-body .nf { color: #A6E22E }
+.code-block-body .nl { color: #F8F8F2 }
+.code-block-body .nn { color: #F8F8F2 }
+.code-block-body .nx { color: #A6E22E }
+.code-block-body .py { color: #F8F8F2 }
+.code-block-body .nt { color: #FF4689 }
+.code-block-body .nv { color: #F8F8F2 }
+.code-block-body .ow { color: #FF4689 }
+.code-block-body .pm { color: #F8F8F2 }
+.code-block-body .w { color: #F8F8F2 }
+.code-block-body .mb { color: #AE81FF }
+.code-block-body .mf { color: #AE81FF }
+.code-block-body .mh { color: #AE81FF }
+.code-block-body .mi { color: #AE81FF }
+.code-block-body .mo { color: #AE81FF }
+.code-block-body .sa { color: #E6DB74 }
+.code-block-body .sb { color: #E6DB74 }
+.code-block-body .sc { color: #E6DB74 }
+.code-block-body .dl { color: #E6DB74 }
+.code-block-body .sd { color: #E6DB74 }
+.code-block-body .s2 { color: #E6DB74 }
+.code-block-body .se { color: #AE81FF }
+.code-block-body .sh { color: #E6DB74 }
+.code-block-body .si { color: #E6DB74 }
+.code-block-body .sx { color: #E6DB74 }
+.code-block-body .sr { color: #E6DB74 }
+.code-block-body .s1 { color: #E6DB74 }
+.code-block-body .ss { color: #E6DB74 }
+.code-block-body .bp { color: #F8F8F2 }
+.code-block-body .fm { color: #A6E22E }
+.code-block-body .vc { color: #F8F8F2 }
+.code-block-body .vg { color: #F8F8F2 }
+.code-block-body .vi { color: #F8F8F2 }
+.code-block-body .vm { color: #F8F8F2 }
+.code-block-body .il { color: #AE81FF }
+
+/* Fallback: apply same highlighting inside .md-content for pre-wrap rendering */
+.md-content pre code .hll { background-color: #49483e }
+.md-content pre code .c { color: #959077 }
+.md-content pre code .err { color: #ED007E; background-color: #1E0010 }
+.md-content pre code .k { color: #66D9EF }
+.md-content pre code .l { color: #AE81FF }
+.md-content pre code .n { color: #F8F8F2 }
+.md-content pre code .o { color: #FF4689 }
+.md-content pre code .p { color: #F8F8F2 }
+.md-content pre code .ch { color: #959077 }
+.md-content pre code .cm { color: #959077 }
+.md-content pre code .cp { color: #959077 }
+.md-content pre code .cpf { color: #959077 }
+.md-content pre code .c1 { color: #959077 }
+.md-content pre code .cs { color: #959077 }
+.md-content pre code .gd { color: #FF4689 }
+.md-content pre code .ge { font-style: italic }
+.md-content pre code .gi { color: #A6E22E }
+.md-content pre code .go { color: #66D9EF }
+.md-content pre code .gp { color: #FF4689; font-weight: bold }
+.md-content pre code .gs { font-weight: bold }
+.md-content pre code .gu { color: #959077 }
+.md-content pre code .kc { color: #66D9EF }
+.md-content pre code .kd { color: #66D9EF }
+.md-content pre code .kn { color: #FF4689 }
+.md-content pre code .kp { color: #66D9EF }
+.md-content pre code .kr { color: #66D9EF }
+.md-content pre code .kt { color: #66D9EF }
+.md-content pre code .ld { color: #E6DB74 }
+.md-content pre code .m { color: #AE81FF }
+.md-content pre code .s { color: #E6DB74 }
+.md-content pre code .na { color: #A6E22E }
+.md-content pre code .nb { color: #F8F8F2 }
+.md-content pre code .nc { color: #A6E22E }
+.md-content pre code .no { color: #66D9EF }
+.md-content pre code .nd { color: #A6E22E }
+.md-content pre code .ne { color: #A6E22E }
+.md-content pre code .nf { color: #A6E22E }
+.md-content pre code .nn { color: #F8F8F2 }
+.md-content pre code .nt { color: #FF4689 }
+.md-content pre code .nv { color: #F8F8F2 }
+.md-content pre code .ow { color: #FF4689 }
+.md-content pre code .w { color: #F8F8F2 }
+.md-content pre code .mb { color: #AE81FF }
+.md-content pre code .mf { color: #AE81FF }
+.md-content pre code .mh { color: #AE81FF }
+.md-content pre code .mi { color: #AE81FF }
+.md-content pre code .mo { color: #AE81FF }
+.md-content pre code .sa { color: #E6DB74 }
+.md-content pre code .sb { color: #E6DB74 }
+.md-content pre code .sc { color: #E6DB74 }
+.md-content pre code .dl { color: #E6DB74 }
+.md-content pre code .sd { color: #E6DB74 }
+.md-content pre code .s2 { color: #E6DB74 }
+.md-content pre code .se { color: #AE81FF }
+.md-content pre code .sh { color: #E6DB74 }
+.md-content pre code .si { color: #E6DB74 }
+.md-content pre code .sx { color: #E6DB74 }
+.md-content pre code .sr { color: #E6DB74 }
+.md-content pre code .s1 { color: #E6DB74 }
+.md-content pre code .ss { color: #E6DB74 }
+.md-content pre code .bp { color: #F8F8F2 }
+.md-content pre code .fm { color: #A6E22E }
+.md-content pre code .vc { color: #F8F8F2 }
+.md-content pre code .vg { color: #F8F8F2 }
+.md-content pre code .vi { color: #F8F8F2 }
+.md-content pre code .vm { color: #F8F8F2 }
+.md-content pre code .il { color: #AE81FF }
+
+[data-theme="light"] .code-block-body .hll,
+[data-theme="light"] .md-content pre code .hll { background-color: #dbeafe }
+[data-theme="light"] .code-block-body .c,
+[data-theme="light"] .code-block-body .ch,
+[data-theme="light"] .code-block-body .cm,
+[data-theme="light"] .code-block-body .cp,
+[data-theme="light"] .code-block-body .cpf,
+[data-theme="light"] .code-block-body .c1,
+[data-theme="light"] .code-block-body .cs,
+[data-theme="light"] .code-block-body .gu,
+[data-theme="light"] .md-content pre code .c,
+[data-theme="light"] .md-content pre code .ch,
+[data-theme="light"] .md-content pre code .cm,
+[data-theme="light"] .md-content pre code .cp,
+[data-theme="light"] .md-content pre code .cpf,
+[data-theme="light"] .md-content pre code .c1,
+[data-theme="light"] .md-content pre code .cs,
+[data-theme="light"] .md-content pre code .gu { color: #5f6b7a }
+[data-theme="light"] .code-block-body .err,
+[data-theme="light"] .md-content pre code .err { color: #b42318; background-color: #fee4e2 }
+[data-theme="light"] .code-block-body .k,
+[data-theme="light"] .code-block-body .kc,
+[data-theme="light"] .code-block-body .kd,
+[data-theme="light"] .code-block-body .kn,
+[data-theme="light"] .code-block-body .kp,
+[data-theme="light"] .code-block-body .kr,
+[data-theme="light"] .code-block-body .kt,
+[data-theme="light"] .md-content pre code .k,
+[data-theme="light"] .md-content pre code .kc,
+[data-theme="light"] .md-content pre code .kd,
+[data-theme="light"] .md-content pre code .kn,
+[data-theme="light"] .md-content pre code .kp,
+[data-theme="light"] .md-content pre code .kr,
+[data-theme="light"] .md-content pre code .kt { color: #075985 }
+[data-theme="light"] .code-block-body .l,
+[data-theme="light"] .code-block-body .m,
+[data-theme="light"] .code-block-body .mb,
+[data-theme="light"] .code-block-body .mf,
+[data-theme="light"] .code-block-body .mh,
+[data-theme="light"] .code-block-body .mi,
+[data-theme="light"] .code-block-body .mo,
+[data-theme="light"] .code-block-body .il,
+[data-theme="light"] .md-content pre code .l,
+[data-theme="light"] .md-content pre code .m,
+[data-theme="light"] .md-content pre code .mb,
+[data-theme="light"] .md-content pre code .mf,
+[data-theme="light"] .md-content pre code .mh,
+[data-theme="light"] .md-content pre code .mi,
+[data-theme="light"] .md-content pre code .mo,
+[data-theme="light"] .md-content pre code .il { color: #7c3aed }
+[data-theme="light"] .code-block-body .n,
+[data-theme="light"] .code-block-body .nb,
+[data-theme="light"] .code-block-body .ni,
+[data-theme="light"] .code-block-body .nl,
+[data-theme="light"] .code-block-body .nn,
+[data-theme="light"] .code-block-body .nv,
+[data-theme="light"] .code-block-body .py,
+[data-theme="light"] .code-block-body .pm,
+[data-theme="light"] .code-block-body .w,
+[data-theme="light"] .code-block-body .bp,
+[data-theme="light"] .code-block-body .vc,
+[data-theme="light"] .code-block-body .vg,
+[data-theme="light"] .code-block-body .vi,
+[data-theme="light"] .code-block-body .vm,
+[data-theme="light"] .md-content pre code .n,
+[data-theme="light"] .md-content pre code .nb,
+[data-theme="light"] .md-content pre code .nn,
+[data-theme="light"] .md-content pre code .nv,
+[data-theme="light"] .md-content pre code .w,
+[data-theme="light"] .md-content pre code .bp,
+[data-theme="light"] .md-content pre code .vc,
+[data-theme="light"] .md-content pre code .vg,
+[data-theme="light"] .md-content pre code .vi,
+[data-theme="light"] .md-content pre code .vm { color: #2f3440 }
+[data-theme="light"] .code-block-body .o,
+[data-theme="light"] .code-block-body .gd,
+[data-theme="light"] .code-block-body .gp,
+[data-theme="light"] .code-block-body .nt,
+[data-theme="light"] .code-block-body .ow,
+[data-theme="light"] .md-content pre code .o,
+[data-theme="light"] .md-content pre code .gd,
+[data-theme="light"] .md-content pre code .gp,
+[data-theme="light"] .md-content pre code .nt,
+[data-theme="light"] .md-content pre code .ow { color: #be123c }
+[data-theme="light"] .code-block-body .s,
+[data-theme="light"] .code-block-body .ld,
+[data-theme="light"] .code-block-body .sa,
+[data-theme="light"] .code-block-body .sb,
+[data-theme="light"] .code-block-body .sc,
+[data-theme="light"] .code-block-body .dl,
+[data-theme="light"] .code-block-body .sd,
+[data-theme="light"] .code-block-body .s2,
+[data-theme="light"] .code-block-body .sh,
+[data-theme="light"] .code-block-body .si,
+[data-theme="light"] .code-block-body .sx,
+[data-theme="light"] .code-block-body .sr,
+[data-theme="light"] .code-block-body .s1,
+[data-theme="light"] .code-block-body .ss,
+[data-theme="light"] .md-content pre code .s,
+[data-theme="light"] .md-content pre code .ld,
+[data-theme="light"] .md-content pre code .sa,
+[data-theme="light"] .md-content pre code .sb,
+[data-theme="light"] .md-content pre code .sc,
+[data-theme="light"] .md-content pre code .dl,
+[data-theme="light"] .md-content pre code .sd,
+[data-theme="light"] .md-content pre code .s2,
+[data-theme="light"] .md-content pre code .sh,
+[data-theme="light"] .md-content pre code .si,
+[data-theme="light"] .md-content pre code .sx,
+[data-theme="light"] .md-content pre code .sr,
+[data-theme="light"] .md-content pre code .s1,
+[data-theme="light"] .md-content pre code .ss { color: #7a4f00 }
+[data-theme="light"] .code-block-body .na,
+[data-theme="light"] .code-block-body .nc,
+[data-theme="light"] .code-block-body .nd,
+[data-theme="light"] .code-block-body .ne,
+[data-theme="light"] .code-block-body .nf,
+[data-theme="light"] .code-block-body .nx,
+[data-theme="light"] .code-block-body .fm,
+[data-theme="light"] .md-content pre code .na,
+[data-theme="light"] .md-content pre code .nc,
+[data-theme="light"] .md-content pre code .nd,
+[data-theme="light"] .md-content pre code .ne,
+[data-theme="light"] .md-content pre code .nf,
+[data-theme="light"] .md-content pre code .fm { color: #166534 }
+

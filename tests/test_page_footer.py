@@ -29,9 +29,8 @@ def test_main_template_renders_central_page_footer():
     assert "Found an issue on this page?" in main
 
 
-def test_article_navigation_styles_exist_in_both_asset_copies():
-    for css_path in ("assets/css/main.css", "docs/assets/css/main.css"):
-        css = read(css_path)
+def test_article_navigation_styles_exist():
+    css = read("docs/assets/css/main.css")
 
-        assert ".md-content .wiki-article-nav-button" in css
-        assert ".wiki-article-nav-icon" in css
+    assert ".md-content .wiki-article-nav-button" in css
+    assert ".wiki-article-nav-icon" in css
