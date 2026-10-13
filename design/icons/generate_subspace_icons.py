@@ -6,7 +6,7 @@ gently along the stroke and tapers at loose ends, then written as a filled path.
 pen line drawn by hand, not as a geometric stroke.
 
 Usage: python design/icons/generate_subspace_icons.py [--out DIR] [icon ...]   (all icons when none given)
-Writes <name>.svg and preview.html into DIR (default: tmp/custom-icons/subspace-icons/). Copy the validated SVGs to
+Writes <name>.svg (regular), <name>-bold.svg, and preview.html into DIR (default: tmp/custom-icons/subspace-icons/). Copy the validated SVGs to
 theme/icons/subspaces/, which the theme includes inline (design/ui-design-spec.md, section 0.15).
 """
 
@@ -22,7 +22,10 @@ HERE = Path(__file__).resolve().parents[2] / "tmp" / "custom-icons" / "subspace-
 INK = "#3b3631"       # warm charcoal
 ACCENT = "#125dae"    # the theme accent blue (light theme); the site swaps in --ui-accent
 
-BASE_WIDTH = 1.3      # stroke width in grid units (24-unit canvas)
+# Two weights of the same drawings: regular for large display (the Welcome cards), bold for small sizes (the sidebar),
+# where a regular line reads too thin. BASE_WIDTH is set per variant by build_svg.
+VARIANTS = {"regular": 1.3, "bold": 1.85}
+BASE_WIDTH = VARIANTS["regular"]  # stroke width in grid units (24-unit canvas)
 WOBBLE = 0.09         # displacement amplitude of the hand wobble, grid units
 STEP = 0.18           # centreline sampling step, grid units
 
@@ -99,13 +102,14 @@ class Noise:
 # Ink strokes
 # ---------------------------------------------------------------------------------------------------------------------
 
-def ink_stroke(points, rng, closed=False, width=BASE_WIDTH, taper=(0.7, 0.62), wobble=WOBBLE, overshoot=0.0,
+def ink_stroke(points, rng, closed=False, width=None, taper=(0.7, 0.62), wobble=WOBBLE, overshoot=0.0,
                spline=True):
     """Return a closed outline (list of points) of a hand-inked stroke along the given points.
 
     taper: end widths as fractions of `width` at (start, end) for open strokes.
     overshoot: for closed shapes, draw past the start by this many units, as a hand closing a loop does.
     """
+    width = BASE_WIDTH if width is None else width
     centre = catmull_rom(points, closed=closed) if spline else list(points)
     if closed:
         # Draw a closed shape as one open stroke that overlaps its start slightly.
@@ -337,7 +341,13 @@ ICONS = {
 # Output
 # ---------------------------------------------------------------------------------------------------------------------
 
-def build_svg(name):
+def file_name(name, variant):
+    return f"{name}.svg" if variant == "regular" else f"{name}-{variant}.svg"
+
+
+def build_svg(name, variant="regular"):
+    global BASE_WIDTH
+    BASE_WIDTH = VARIANTS[variant]
     fn, seed = ICONS[name]
     rng = random.Random(seed)
     ink, accent = fn(rng)
@@ -377,11 +387,13 @@ PREVIEW = """<!doctype html>
 
 
 def write_preview(names):
+    files = [file_name(n, v) for v in VARIANTS for n in names]
+
     def row(cls, size):
-        cells = "".join(f'<figure class="s{size}">{(HERE / f"{n}.svg").read_text()}<figcaption>{n}</figcaption></figure>'
-                        for n in names)
+        cells = "".join(f'<figure class="s{size}">{(HERE / f).read_text()}<figcaption>{f[:-4]}</figcaption></figure>'
+                        for f in files)
         return f'<div class="row {cls}">{cells}</div>'
-    big = "".join(f'<figure style="width:240px">{(HERE / f"{n}.svg").read_text().replace('width="24" height="24"', 'width="240" height="240"')}<figcaption>{n}</figcaption></figure>' for n in names)
+    big = "".join(f'<figure style="width:240px">{(HERE / f).read_text().replace('width="24" height="24"', 'width="240" height="240"')}<figcaption>{f[:-4]}</figcaption></figure>' for f in files)
     sections = [f'<section class="paper"><div class="row">{big}</div></section>']
     for theme in ("", "paper", "dark"):
         sections.append(f'<section class="{theme}">{row("", 120)}<br>{row("", 48)}<br>{row("", 24)}<br>{row("", 18)}</section>')
@@ -397,8 +409,9 @@ def main(argv):
     HERE.mkdir(parents=True, exist_ok=True)
     names = argv or list(ICONS)
     for name in names:
-        (HERE / f"{name}.svg").write_text(build_svg(name), encoding="utf-8")
-        print("wrote", name)
+        for variant in VARIANTS:
+            (HERE / file_name(name, variant)).write_text(build_svg(name, variant), encoding="utf-8")
+            print("wrote", file_name(name, variant))
     write_preview(list(ICONS))
 
 

@@ -1474,7 +1474,7 @@ button {
 /*
  * Icon cards (`ui-grid ui-cards`, spec 0.13): no letter index; the subspace icon sits above the title (inlined by
  * hooks/icons.py). On hover the card fills with a soft accent gradient and a faint, oversized copy of its icon, centred
- * near the card's lower right and cropped by the card.
+ * towards the card's lower right and cropped by the card.
  */
 .md-content .ui-icon,
 .md-content .ui-card-backdrop {
@@ -1529,10 +1529,10 @@ button {
 
 .md-content .ui-cards .ui-card-backdrop {
     position: absolute;
-    left: 80%;
-    top: 85%;
+    left: 70%;
+    top: 72%;
     z-index: -1;
-    width: 175%;
+    width: 140%;
     aspect-ratio: 1;
     display: block;
     opacity: 0;

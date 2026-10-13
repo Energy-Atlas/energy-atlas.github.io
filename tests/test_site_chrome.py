@@ -65,7 +65,8 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
     assert 'class="wiki-space-switcher-option-main"' in base
     assert 'class="wiki-space-switcher-check"' in base
     # Every subspace has its own icon from the hand-drawn family, included from theme/icons/subspaces/.
-    assert "{% include 'icons/subspaces/' ~ slug ~ '.svg' %}" in base
+    # The sidebar uses the bold weight; the regular weight is for the Welcome cards.
+    assert "{% include 'icons/subspaces/' ~ slug ~ '-bold.svg' %}" in base
     assert 'data-icon-source="energyatlas-hand-drawn"' in base
     assert "lucide" not in base
     for title, slug in (
@@ -79,10 +80,11 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
         ("Wiki Guide", "wiki-guide"),
     ):
         assert f"'{title}': '{slug}'" in base
-        icon = read(f"theme/icons/subspaces/{slug}.svg")
-        assert 'viewBox="0 0 24 24"' in icon
-        assert '<g class="ink"' in icon
-        assert '<g class="accent"' in icon
+        for variant in (f"{slug}.svg", f"{slug}-bold.svg"):
+            icon = read(f"theme/icons/subspaces/{variant}")
+            assert 'viewBox="0 0 24 24"' in icon
+            assert '<g class="ink"' in icon
+            assert '<g class="accent"' in icon
 
     # The ink follows the row's text colour; the accent takes the theme's accent blue.
     css = read(CSS)

@@ -206,7 +206,7 @@ def test_icon_cards_hover_with_gradient_and_cropped_backdrop():
     card = css.split(".md-content .ui-cards > :is(ul, ol) > li {", 1)[1].split("}", 1)[0]
     assert "overflow: hidden;" in card
     backdrop = css.split(".md-content .ui-cards .ui-card-backdrop {", 1)[1].split("}", 1)[0]
-    assert "left: 80%;" in backdrop
-    assert "top: 85%;" in backdrop
-    assert "width: 175%;" in backdrop
+    assert "left: 70%;" in backdrop
+    assert "top: 72%;" in backdrop
+    assert "width: 140%;" in backdrop
     assert "linear-gradient" in css.split(".md-content .ui-cards > :is(ul, ol) > li::before {", 1)[1].split("}", 1)[0]

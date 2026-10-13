@@ -48,7 +48,8 @@
     {% endfor %}
     
 </head>
-{#- Subspace icons: the hand-drawn family in theme/icons/subspaces/ (design/ui-design-spec.md, 0.7). Each SVG keeps
+{#- Subspace icons: the bold weight of the hand-drawn family in theme/icons/subspaces/, which stays legible at sidebar
+    sizes (design/ui-design-spec.md, 0.15); the Welcome cards use the regular weight. Each SVG keeps
     its ink in a .ink group and its terracotta accent in an .accent group, so CSS can give the ink the theme's text
     colour. -#}
 {% set space_icons = {
@@ -64,7 +65,7 @@
 {% macro render_space_icon(title) %}
     {% set slug = space_icons.get(title) %}
     {% if slug %}
-        <span class="wiki-space-icon wiki-space-icon-{{ slug }}" data-icon-source="energyatlas-hand-drawn" data-icon-name="{{ slug }}" aria-hidden="true">{% include 'icons/subspaces/' ~ slug ~ '.svg' %}</span>
+        <span class="wiki-space-icon wiki-space-icon-{{ slug }}" data-icon-source="energyatlas-hand-drawn" data-icon-name="{{ slug }}" aria-hidden="true">{% include 'icons/subspaces/' ~ slug ~ '-bold.svg' %}</span>
     {% endif %}
 {% endmacro %}
 {% macro render_space_tree(items) %}
