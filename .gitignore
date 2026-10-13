@@ -122,3 +122,4 @@ dmypy.json
 
 # Icon generation workspace (custom-icons skill); final icons live in docs/assets/images/icons/
 tmp/
+.claude/launch.json
