@@ -1,7 +1,7 @@
 site_name: EnergyAtlas Wiki
 site_description: Documentation for EnergyAtlas
-site_url: https://chengxuan-li.github.io/EnergyAtlasWiki/
-repo_url: https://github.com/Chengxuan-Li/EnergyAtlasWiki
+site_url: https://energy-atlas.github.io/
+repo_url: https://github.com/Energy-Atlas/energy-atlas.github.io
 edit_uri: edit/main/docs/
 
 theme:

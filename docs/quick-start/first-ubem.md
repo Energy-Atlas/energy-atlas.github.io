@@ -94,4 +94,4 @@ Common issues and solutions:
 - **Missing archetypes**: Create custom archetypes or use library templates
 - **Simulation failures**: Verify weather file compatibility and building assignments
 
-**Need help?** Open an [issue on GitHub](https://github.com/Chengxuan-Li/EnergyAtlasWiki/issues/new).
+**Need help?** Open an [issue on GitHub](https://github.com/Energy-Atlas/energy-atlas.github.io/issues/new).
