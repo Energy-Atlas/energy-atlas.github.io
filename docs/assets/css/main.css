@@ -1572,59 +1572,59 @@ button {
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-quick-start :is(.ink path:nth-of-type(2), .accent path) {
-    animation: ui-icon-swing 730ms ease-in-out;
+    animation: ui-icon-swing 500ms ease-in-out;
 }
 
 /* Workflows: the arrow (ink 2) draws from the start ring, its head (ink 3) lands, and the node (accent) pops. */
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-workflows .ink path:nth-of-type(2) {
-    animation: ui-icon-draw-up-right 350ms ease-out;
+    animation: ui-icon-draw-up-right 240ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-workflows .ink path:nth-of-type(3) {
-    animation: ui-icon-land-right 470ms ease-out;
+    animation: ui-icon-land-right 320ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-workflows .accent path {
-    animation: ui-icon-pop 600ms ease-out;
+    animation: ui-icon-pop 410ms ease-out;
 }
 
 /* Architecture: the connectors (ink 3, 4) draw downwards; the blocks (ink 1, ink 2, accent) pop in turn. */
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .ink path:nth-of-type(1) {
-    animation: ui-icon-pop-early 330ms ease-out;
+    animation: ui-icon-pop-early 230ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .ink path:is(:nth-of-type(3), :nth-of-type(4)) {
-    animation: ui-icon-draw-down 400ms ease-out;
+    animation: ui-icon-draw-down 270ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .ink path:nth-of-type(2) {
-    animation: ui-icon-pop 530ms ease-out;
+    animation: ui-icon-pop 360ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .accent path {
-    animation: ui-icon-pop 630ms ease-out;
+    animation: ui-icon-pop 430ms ease-out;
 }
 
 /* Python: the two snakes (ink, accent) pull apart and lock back together. */
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-python .ink {
-    animation: ui-icon-part-up-left 530ms ease-in-out;
+    animation: ui-icon-part-up-left 360ms ease-in-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-python .accent {
-    animation: ui-icon-part-down-right 530ms ease-in-out;
+    animation: ui-icon-part-down-right 360ms ease-in-out;
 }
 
 /* WebAPI: the brackets (ink 1, 2) spread; the slash (accent) tilts. */
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-web-api .ink path:nth-of-type(1) {
-    animation: ui-icon-nudge-left 470ms ease-in-out;
+    animation: ui-icon-nudge-left 320ms ease-in-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-web-api .ink path:nth-of-type(2) {
-    animation: ui-icon-nudge-right 470ms ease-in-out;
+    animation: ui-icon-nudge-right 320ms ease-in-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-web-api .accent path {
-    animation: ui-icon-tilt 470ms ease-in-out;
+    animation: ui-icon-tilt 320ms ease-in-out;
 }
 
 /* Library: the leaning book (ink 2) straightens up and settles back; the accent book lifts. */
@@ -1633,11 +1633,11 @@ button {
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-library .ink path:nth-of-type(2) {
-    animation: ui-icon-straighten 600ms ease-in-out;
+    animation: ui-icon-straighten 410ms ease-in-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-library .accent path {
-    animation: ui-icon-lift 600ms ease-in-out;
+    animation: ui-icon-lift 410ms ease-in-out;
 }
 
 /* User Stories: the speech bubble (accent) pops out from its tail; the head (ink 1) nods. */
@@ -1646,11 +1646,11 @@ button {
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-user-stories .accent path {
-    animation: ui-icon-speak 430ms ease-out;
+    animation: ui-icon-speak 290ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-user-stories .ink path:nth-of-type(1) {
-    animation: ui-icon-nod 470ms ease-in-out;
+    animation: ui-icon-nod 320ms ease-in-out;
 }
 
 /* Wiki Guide: the ribbon (accent) drops in from the top edge; the right page (ink 2) flutters at the spine. */
@@ -1663,11 +1663,11 @@ button {
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-wiki-guide .accent path {
-    animation: ui-icon-drop 470ms ease-out;
+    animation: ui-icon-drop 320ms ease-out;
 }
 
 .md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-wiki-guide .ink path:nth-of-type(2) {
-    animation: ui-icon-page 530ms ease-in-out;
+    animation: ui-icon-page 360ms ease-in-out;
 }
 
 @keyframes ui-icon-swing {
