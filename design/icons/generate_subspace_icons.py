@@ -25,7 +25,7 @@ ACCENT = "#125dae"    # the theme accent blue (light theme); the site swaps in -
 # Three weights of the same drawings: light for the large icons of the Welcome cards and their backdrops, regular as the
 # standalone default, and bold for small sizes (the sidebar), where a lighter line reads too thin. BASE_WIDTH is set per
 # variant by build_svg.
-VARIANTS = {"regular": 1.3, "bold": 1.85, "light": 1.0}
+VARIANTS = {"regular": 1.3, "bold": 1.85, "light": 1.15}
 BASE_WIDTH = VARIANTS["regular"]  # stroke width in grid units (24-unit canvas)
 WOBBLE = 0.09         # displacement amplitude of the hand wobble, grid units
 STEP = 0.18           # centreline sampling step, grid units
