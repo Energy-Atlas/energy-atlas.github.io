@@ -48,57 +48,23 @@
     {% endfor %}
     
 </head>
+{#- Subspace icons: the hand-drawn family in theme/icons/subspaces/ (design/ui-design-spec.md, 0.7). Each SVG keeps
+    its ink in a .ink group and its terracotta accent in an .accent group, so CSS can give the ink the theme's text
+    colour. -#}
+{% set space_icons = {
+    'Quick Start': 'quick-start',
+    'Workflows': 'workflows',
+    'Architecture': 'architecture',
+    'Python': 'python',
+    'WebAPI': 'web-api',
+    'Library': 'library',
+    'User Stories': 'user-stories',
+    'Wiki Guide': 'wiki-guide',
+} %}
 {% macro render_space_icon(title) %}
-    {% if title == 'Quick Start' %}
-        <svg class="wiki-space-icon wiki-space-icon-quick-start" data-icon-source="lucide" data-icon-name="compass" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path>
-        </svg>
-    {% elif title == 'Workflows' %}
-        <svg class="wiki-space-icon wiki-space-icon-workflows" data-icon-source="lucide" data-icon-name="monitor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <rect width="20" height="14" x="2" y="3" rx="2"></rect>
-            <line x1="8" x2="16" y1="21" y2="21"></line>
-            <line x1="12" x2="12" y1="17" y2="21"></line>
-        </svg>
-    {% elif title == 'Architecture' %}
-        <svg class="wiki-space-icon wiki-space-icon-architecture" data-icon-source="lucide" data-icon-name="network" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <rect x="16" y="16" width="6" height="6" rx="1"></rect>
-            <rect x="2" y="16" width="6" height="6" rx="1"></rect>
-            <rect x="9" y="2" width="6" height="6" rx="1"></rect>
-            <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
-            <path d="M12 12V8"></path>
-        </svg>
-    {% elif title == 'Python' %}
-        <svg class="wiki-space-icon wiki-space-icon-python" data-icon-source="simple-icons" data-icon-name="python" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"></path>
-        </svg>
-    {% elif title == 'WebAPI' %}
-        <svg class="wiki-space-icon wiki-space-icon-web-api" data-icon-source="lucide" data-icon-name="code-xml" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="m18 16 4-4-4-4"></path>
-            <path d="m6 8-4 4 4 4"></path>
-            <path d="m14.5 4-5 16"></path>
-        </svg>
-    {% elif title == 'Library' %}
-        <svg class="wiki-space-icon wiki-space-icon-library" data-icon-source="lucide" data-icon-name="library-big" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <rect width="8" height="18" x="3" y="3" rx="1"></rect>
-            <path d="M7 3v18"></path>
-            <path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"></path>
-        </svg>
-    {% elif title == 'User Stories' %}
-        <svg class="wiki-space-icon wiki-space-icon-user-stories" data-icon-source="lucide" data-icon-name="users-round" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M18 21a8 8 0 0 0-16 0"></path>
-            <circle cx="10" cy="8" r="5"></circle>
-            <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"></path>
-        </svg>
-    {% elif title == 'Wiki Guide' %}
-        <svg class="wiki-space-icon wiki-space-icon-wiki-guide" data-icon-source="lucide" data-icon-name="book-open-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M12 7v14"></path>
-            <path d="M16 12h2"></path>
-            <path d="M16 8h2"></path>
-            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
-            <path d="M6 12h2"></path>
-            <path d="M6 8h2"></path>
-        </svg>
+    {% set slug = space_icons.get(title) %}
+    {% if slug %}
+        <span class="wiki-space-icon wiki-space-icon-{{ slug }}" data-icon-source="energyatlas-hand-drawn" data-icon-name="{{ slug }}" aria-hidden="true">{% include 'icons/subspaces/' ~ slug ~ '.svg' %}</span>
     {% endif %}
 {% endmacro %}
 {% macro render_space_tree(items) %}

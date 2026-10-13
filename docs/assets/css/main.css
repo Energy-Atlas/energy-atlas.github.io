@@ -39,6 +39,9 @@
     --ui-warning: #ffc107;
     --ui-error: #f44336;
 
+    /* The muted terracotta of the hand-drawn icons: an icon-only accent, never text or state (spec 0.5). */
+    --ui-icon-accent: #c2704f;
+
     --ui-scrim: rgba(0, 0, 0, 0.6);
     --ui-scrollbar-thumb: rgba(255, 255, 255, 0.2);
     --ui-scrollbar-thumb-hover: rgba(255, 255, 255, 0.35);
@@ -277,28 +280,28 @@ button {
     gap: 0.75rem;
 }
 
+/*
+ * Subspace icons: the hand-drawn family (theme/icons/subspaces/). The ink takes the colour of the row's text; the
+ * terracotta accent stays fixed in both themes.
+ */
 .wiki-space-icon {
-    width: 18px;
-    height: 18px;
-    flex: 0 0 18px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.65;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    display: inline-flex;
 }
 
-.wiki-space-icon-python {
+.wiki-space-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.wiki-space-icon .ink {
     fill: currentColor;
-    stroke: none;
 }
 
-.wiki-space-icon-architecture {
-    stroke-width: 1.5;
-}
-
-.wiki-space-switcher-summary .wiki-space-icon {
-    color: var(--ui-accent);
+.wiki-space-icon .accent {
+    fill: var(--ui-icon-accent);
 }
 
 /* Subspace names: the primary sans in bold, normal case (spec 0.7). */
@@ -376,11 +379,6 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.wiki-space-switcher-option:hover .wiki-space-icon,
-.wiki-space-switcher-option.active .wiki-space-icon {
-    color: var(--ui-accent);
 }
 
 .wiki-space-switcher-check {

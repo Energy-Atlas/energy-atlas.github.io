@@ -64,35 +64,31 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
     assert "render_space_icon(nav_item.title)" in base
     assert 'class="wiki-space-switcher-option-main"' in base
     assert 'class="wiki-space-switcher-check"' in base
-    for icon_name in (
-        "quick-start",
-        "workflows",
-        "architecture",
-        "python",
-        "web-api",
-        "library",
-        "user-stories",
-        "wiki-guide",
+    # Every subspace has its own icon from the hand-drawn family, included from theme/icons/subspaces/.
+    assert "{% include 'icons/subspaces/' ~ slug ~ '.svg' %}" in base
+    assert 'data-icon-source="energyatlas-hand-drawn"' in base
+    assert "lucide" not in base
+    for title, slug in (
+        ("Quick Start", "quick-start"),
+        ("Workflows", "workflows"),
+        ("Architecture", "architecture"),
+        ("Python", "python"),
+        ("WebAPI", "web-api"),
+        ("Library", "library"),
+        ("User Stories", "user-stories"),
+        ("Wiki Guide", "wiki-guide"),
     ):
-        assert f"wiki-space-icon-{icon_name}" in base
+        assert f"'{title}': '{slug}'" in base
+        icon = read(f"theme/icons/subspaces/{slug}.svg")
+        assert 'viewBox="0 0 24 24"' in icon
+        assert '<g class="ink"' in icon
+        assert '<g class="accent"' in icon
 
-    for icon_name in (
-        "compass",
-        "monitor",
-        "network",
-        "code-xml",
-        "library-big",
-        "users-round",
-        "book-open-text",
-    ):
-        assert f'data-icon-source="lucide" data-icon-name="{icon_name}"' in base
-    assert 'data-icon-source="simple-icons" data-icon-name="python"' in base
-
+    # The ink follows the row's text colour; the terracotta accent is fixed.
     css = read(CSS)
-    assert ".wiki-space-icon {" in css
-    assert ".wiki-space-icon-python {" in css
-    assert ".wiki-space-icon-architecture {" in css
-    assert "fill: currentColor;" in css
+    assert "fill: currentColor;" in block(css, ".wiki-space-icon .ink {")
+    assert "fill: var(--ui-icon-accent);" in block(css, ".wiki-space-icon .accent {")
+    assert "--ui-icon-accent: #c2704f;" in css
     assert ".wiki-space-switcher-option-main {" in css
     assert ".wiki-space-switcher-check {" in css
     assert "--wiki-bar-height: 3.5rem;" in css
