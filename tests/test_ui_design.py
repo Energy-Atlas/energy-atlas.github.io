@@ -157,3 +157,28 @@ def test_page_changes_do_not_fade_the_content():
 def test_the_root_asset_mirror_is_gone():
     assert not (ROOT / "assets").exists()
     assert not (ROOT / "wiki-template.html").exists()
+
+
+def test_frame_is_centred_beside_a_sidebar_with_its_own_rule():
+    css = read("docs/assets/css/main.css")
+
+    frame = css.split(".wiki-page-shell .menu-content {", 1)[1].split("}", 1)[0]
+    assert "margin: 0 auto;" in frame
+    sidebar = css.split(".wiki-sidebar {", 1)[1].split("}", 1)[0]
+    assert "box-shadow: 1px 0 0 var(--ui-border-subtle);" in sidebar
+
+
+def test_development_notice_floats_and_repeats_in_the_sidebar():
+    css = read("docs/assets/css/main.css")
+    base = read("theme/base.html")
+
+    banner = css.split(".wiki-dev-notice-banner {", 1)[1].split("}", 1)[0]
+    assert "position: fixed;" in banner
+    assert "right: 1.5rem;" in banner
+    assert "left:" not in banner
+    assert "body.wiki-has-dev-banner" not in css
+
+    # The sidebar copy sits at the bottom of the sidebar body, after the page tree and before the tool row.
+    assert base.index('class="wiki-space-navigation"') < base.index('class="wiki-sidebar-notice"')
+    assert base.index('class="wiki-sidebar-notice"') < base.index('class="wiki-sidebar-tools"')
+    assert base.count("EnergyAtlas Wiki is still under active development.") == 2

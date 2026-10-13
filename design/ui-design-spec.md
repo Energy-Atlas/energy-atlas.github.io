@@ -74,14 +74,14 @@ Adjusted and added tokens:
 
 The Wiki keeps its sidebar shell; it does **not** adopt the sister sites' top header with tabs. Eight subspaces with nested groups do not fit a tab row, and the subspace switcher already solves that navigation.
 
-- **No top header.** The left sidebar holds, top to bottom: the brand row, the subspace switcher, the current subspace's page tree, and the tool row (theme toggle, edit this page, GitHub repository, collapse). Each part is separated by a thin horizontal rule; the sidebar's right edge is the page frame's left rule.
+- **No top header.** The left sidebar holds, top to bottom: the brand row, the subspace switcher, the current subspace's page tree, the development notice, and the tool row (theme toggle, edit this page, GitHub repository, collapse). Each part is separated by a thin horizontal rule, and the sidebar has its own right rule.
 - **Subspace switcher:** one full-width row with the subspace icon and its name in small uppercase mono; its menu is a flat, square list with thin rules between options, the current option marked by an accent edge and a check.
 - **Page tree:** muted Geist labels; the active page in primary text with a 2px accent edge at the left, not a filled block. Groups are collapsible rows with a chevron; nested levels are indented and joined by a thin vertical rule.
 - **Tool row:** square 32px controls with interactive borders; the theme toggle is a square two-cell switch (sun, moon) whose active cell is inverted.
-- **Frame:** the page shell is bounded on the right by a thin vertical rule when the viewport is wider than the shell; the table of contents sits in its own column behind a thin vertical rule.
+- **Frame:** the article and the table of contents sit in a frame of two thin vertical rules, centred in the space to the right of the sidebar, with empty margins outside it. Where the frame fills that space, its left rule and the sidebar's rule fall on the same pixel column and read as one line. The table of contents sits in its own column behind a thin vertical rule.
 - **Collapse and drawer:** the desktop collapse control and the below-1081px drawer stay as they work today; both become square and flat (no drop shadows, no blur behind the drawer).
 - **Scroll progress:** a 2px accent rule along the bottom edge of the window.
-- **Development notice:** the bottom "WIP EnergyAtlas Wiki" banner stays, as a flat strip with a top rule, a mono uppercase title, and a square button.
+- **Development notice:** the "WIP EnergyAtlas Wiki" message appears twice. Until it is dismissed, it is a floating window at the bottom right: square, flat, a mono uppercase title bar, the message, and a square button. It also sits permanently at the bottom of the sidebar, above the tool row, with a mono uppercase title like the other sidebar labels.
 
 ### 0.8 Welcome page
 

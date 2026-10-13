@@ -173,6 +173,11 @@ button {
     flex-direction: column;
     color: var(--ui-text-primary);
     background: var(--ui-bg-base);
+    /*
+     * The sidebar's rule is drawn just outside it, on the same pixel column as the frame's left rule when the frame
+     * touches the sidebar, so the two read as one line; when the frame is centred away from it, both show.
+     */
+    box-shadow: 1px 0 0 var(--ui-border-subtle);
     transition: width 180ms ease;
 }
 
@@ -606,6 +611,7 @@ button {
 /* Desktop collapse: the sidebar folds away; the tool row stays at the bottom left as a framed block. */
 :root[data-sidebar-collapsed="true"] .wiki-sidebar {
     width: 0;
+    box-shadow: none;
 }
 
 :root[data-sidebar-collapsed="true"] .wiki-sidebar-header,
@@ -643,9 +649,13 @@ button {
     margin-left: 0;
 }
 
-/* The frame: two thin vertical rules from the top of the window to the bottom of the page. */
+/*
+ * The frame: two thin vertical rules from the top of the window to the bottom of the page, centred in the space to the
+ * right of the sidebar, with empty margins outside it.
+ */
 .wiki-page-shell .menu-content {
     max-width: calc(var(--wiki-article-max-width) + var(--wiki-page-toc-width));
+    margin: 0 auto;
     min-height: calc(100vh - var(--wiki-scroll-progress-height));
     border-left: 1px solid var(--ui-border-subtle);
     border-right: 1px solid var(--ui-border-subtle);
@@ -1630,68 +1640,57 @@ button {
     background: var(--ui-accent);
 }
 
-body.wiki-has-dev-banner {
-    padding-bottom: calc(10rem + var(--wiki-scroll-progress-height));
-}
-
+/*
+ * The development notice: a floating window at the bottom right, flat and square, with a title bar. The same message
+ * sits permanently at the bottom of the sidebar (.wiki-sidebar-notice).
+ */
 .wiki-dev-notice-banner {
     position: fixed;
-    left: var(--wiki-sidebar-width);
-    right: 0;
-    bottom: var(--wiki-scroll-progress-height);
+    right: 1.5rem;
+    bottom: calc(1.5rem + var(--wiki-scroll-progress-height));
     z-index: 3500;
-    padding: 1.25rem var(--wiki-gutter);
-    padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    width: min(24rem, calc(100vw - 2rem));
     background: var(--ui-bg-surface-1);
-    border-top: 1px solid var(--ui-border-subtle);
-    transition: left 180ms ease;
-}
-
-:root[data-sidebar-collapsed="true"] .wiki-dev-notice-banner {
-    left: 0;
+    border: 1px solid var(--ui-border-interactive);
 }
 
 .wiki-dev-notice-banner[hidden] {
     display: none;
 }
 
-.wiki-dev-notice-banner-inner {
-    max-width: calc(var(--wiki-article-max-width) + var(--wiki-page-toc-width));
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.5rem 2rem;
-}
-
 .wiki-dev-notice-title {
-    grid-column: 1;
+    height: 2.75rem;
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
     color: var(--ui-text-primary);
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    border-bottom: 1px solid var(--ui-border-subtle);
 }
 
 .wiki-dev-notice-text {
-    grid-column: 1;
-    max-width: var(--wiki-prose-max);
+    padding: 1rem 1.25rem 0;
     color: var(--ui-text-secondary);
     font-size: 0.875rem;
     line-height: 1.55;
 }
 
 .wiki-dev-notice-banner-actions {
-    grid-column: 2;
-    grid-row: 1 / span 2;
+    padding: 1rem 1.25rem 1.25rem;
 }
 
-.wiki-dev-notice-link {
+.wiki-dev-notice-link,
+.wiki-sidebar-notice a {
     color: var(--ui-accent);
     text-decoration: none;
 }
 
-.wiki-dev-notice-link:hover {
+.wiki-dev-notice-link:hover,
+.wiki-sidebar-notice a:hover {
     text-decoration: underline;
 }
 
@@ -1705,6 +1704,30 @@ body.wiki-has-dev-banner {
 .wiki-dev-notice-ok:hover {
     color: var(--ui-text-primary);
     background: transparent;
+}
+
+/* The same notice at the bottom of the sidebar, above the tool row. */
+.wiki-sidebar-notice {
+    padding: 1rem 1.25rem 1.125rem;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 0 var(--ui-border-subtle);
+}
+
+.wiki-sidebar-notice-title {
+    margin-bottom: 0.5rem;
+    color: var(--ui-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.wiki-sidebar-notice-text {
+    color: var(--ui-text-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------
@@ -1731,6 +1754,7 @@ body.wiki-has-dev-banner {
     .wiki-sidebar {
         width: var(--wiki-sidebar-width);
         border-right: 1px solid var(--ui-border-subtle);
+        box-shadow: none;
         transform: translateX(-100%);
         transition: transform 180ms ease;
     }
@@ -1806,9 +1830,6 @@ body.wiki-has-dev-banner {
         padding-left: calc(1rem + 2.25rem + 1rem);
     }
 
-    .wiki-dev-notice-banner {
-        left: 0;
-    }
 }
 
 @media (max-width: 719px) {
@@ -1856,13 +1877,9 @@ body.wiki-has-dev-banner {
         margin-left: 0;
     }
 
-    .wiki-dev-notice-banner-inner {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .wiki-dev-notice-banner-actions {
-        grid-column: 1;
-        grid-row: auto;
+    .wiki-dev-notice-banner {
+        right: 1rem;
+        bottom: calc(1rem + var(--wiki-scroll-progress-height));
     }
 }
 
