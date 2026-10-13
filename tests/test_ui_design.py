@@ -133,7 +133,7 @@ def test_welcome_page_has_hero_then_cover_then_subspace_grid():
                        welcome.split('<div class="ui-grid ui-cards" markdown>', 1)[1], re.MULTILINE)
     cells = [title for _, title in cards]
     for slug, _ in cards:
-        assert (ROOT / "theme" / "icons" / "subspaces" / f"{slug}.svg").is_file(), slug
+        assert (ROOT / "theme" / "icons" / "subspaces" / f"{slug}-light.svg").is_file(), slug
     assert cells == [
         "Quick Start",
         "Workflows",
@@ -197,12 +197,17 @@ def test_icon_hook_inlines_icon_and_backdrop():
     html = icons.on_page_content('<p><span class="ui-icon" data-icon="workflows"></span><a href="x">W</a></p>', None, {}, [])
     assert '<span class="ui-icon ui-icon-workflows" aria-hidden="true"><svg' in html
     assert '<span class="ui-card-backdrop" aria-hidden="true"><svg' in html
+    # Cards and backdrops use the light weight, drawn for large display.
+    light = (ROOT / "theme" / "icons" / "subspaces" / "workflows-light.svg").read_text(encoding="utf-8").strip()
+    assert html.count(light) == 2
     assert "hooks/icons.py" in read("mkdocs.yml")
 
 
 def test_icon_cards_hover_with_gradient_and_cropped_backdrop():
     css = read("docs/assets/css/main.css")
 
+    icon = css.split(".md-content .ui-cards .ui-icon {", 1)[1].split("}", 1)[0]
+    assert "width: 3.5rem;" in icon and "height: 3.5rem;" in icon
     card = css.split(".md-content .ui-cards > :is(ul, ol) > li {", 1)[1].split("}", 1)[0]
     assert "overflow: hidden;" in card
     backdrop = css.split(".md-content .ui-cards .ui-card-backdrop {", 1)[1].split("}", 1)[0]

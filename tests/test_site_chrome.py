@@ -80,7 +80,7 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
         ("Wiki Guide", "wiki-guide"),
     ):
         assert f"'{title}': '{slug}'" in base
-        for variant in (f"{slug}.svg", f"{slug}-bold.svg"):
+        for variant in (f"{slug}.svg", f"{slug}-bold.svg", f"{slug}-light.svg"):
             icon = read(f"theme/icons/subspaces/{variant}")
             assert 'viewBox="0 0 24 24"' in icon
             assert '<g class="ink"' in icon

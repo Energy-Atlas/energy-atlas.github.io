@@ -6,7 +6,7 @@ gently along the stroke and tapers at loose ends, then written as a filled path.
 pen line drawn by hand, not as a geometric stroke.
 
 Usage: python design/icons/generate_subspace_icons.py [--out DIR] [icon ...]   (all icons when none given)
-Writes <name>.svg (regular), <name>-bold.svg, and preview.html into DIR (default: tmp/custom-icons/subspace-icons/). Copy the validated SVGs to
+Writes <name>.svg (regular), <name>-bold.svg, <name>-light.svg, and preview.html into DIR (default: tmp/custom-icons/subspace-icons/). Copy the validated SVGs to
 theme/icons/subspaces/, which the theme includes inline (design/ui-design-spec.md, section 0.15).
 """
 
@@ -22,9 +22,10 @@ HERE = Path(__file__).resolve().parents[2] / "tmp" / "custom-icons" / "subspace-
 INK = "#3b3631"       # warm charcoal
 ACCENT = "#125dae"    # the theme accent blue (light theme); the site swaps in --ui-accent
 
-# Two weights of the same drawings: regular for large display (the Welcome cards), bold for small sizes (the sidebar),
-# where a regular line reads too thin. BASE_WIDTH is set per variant by build_svg.
-VARIANTS = {"regular": 1.3, "bold": 1.85}
+# Three weights of the same drawings: light for the large icons of the Welcome cards and their backdrops, regular as the
+# standalone default, and bold for small sizes (the sidebar), where a lighter line reads too thin. BASE_WIDTH is set per
+# variant by build_svg.
+VARIANTS = {"regular": 1.3, "bold": 1.85, "light": 1.0}
 BASE_WIDTH = VARIANTS["regular"]  # stroke width in grid units (24-unit canvas)
 WOBBLE = 0.09         # displacement amplitude of the hand wobble, grid units
 STEP = 0.18           # centreline sampling step, grid units

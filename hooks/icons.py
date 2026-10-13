@@ -1,7 +1,7 @@
 """Inline the subspace icons into page content.
 
-A page writes `<span class="ui-icon" data-icon="workflows"></span>`; the build replaces it with the icon's SVG from
-theme/icons/subspaces/, so its ink and accent follow the theme through CSS (design/ui-design-spec.md, 0.13 and 0.15).
+A page writes `<span class="ui-icon" data-icon="workflows"></span>`; the build replaces it with the light weight of
+the icon from theme/icons/subspaces/ (<name>-light.svg), so its ink and accent follow the theme through CSS (design/ui-design-spec.md, 0.13 and 0.15).
 Inside a `ui-cards` grid the same icon is also inlined a second time as the card's hover backdrop.
 """
 
@@ -18,7 +18,8 @@ PLACEHOLDER = re.compile(r'<span class="ui-icon" data-icon="([a-z0-9-]+)"></span
 
 @lru_cache(maxsize=None)
 def icon_svg(name: str) -> str:
-    path = ICON_DIR / f"{name}.svg"
+    # The cards and their backdrops show the light weight, drawn for large display (spec 0.15).
+    path = ICON_DIR / f"{name}-light.svg"
     if not path.is_file():
         raise ValueError(f"Unknown icon '{name}': no {path.relative_to(ICON_DIR.parents[2])}")
     return path.read_text(encoding="utf-8").strip()
