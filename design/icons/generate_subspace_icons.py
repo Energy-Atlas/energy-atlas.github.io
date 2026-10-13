@@ -205,17 +205,15 @@ def thin(pts, keep_every=2):
 # ---------------------------------------------------------------------------------------------------------------------
 
 def icon_workflows(rng):
-    """A merge, as in a git graph: two commits whose branches join and run into a merge commit."""
+    """Node, curved arrow, node: one step of a workflow leading to the next."""
     ink, accent = [], []
-    ring_w = BASE_WIDTH * 0.95
-    # Two commits at the top: the trunk's at the left, the branch's at the right.
-    ink.append(ink_stroke(arc_points(6.4, 5.0, 2.1, 200, 548), rng, width=ring_w))
-    ink.append(ink_stroke(arc_points(17.6, 6.4, 2.1, 160, 508), rng, width=ring_w))
-    # The trunk runs straight down; the branch swings across and joins it.
-    ink.append(ink_stroke([(6.4, 8.0), (6.3, 12.4), (6.45, 16.4)], rng, taper=(0.8, 0.8)))
-    ink.append(ink_stroke([(17.5, 9.4), (16.9, 12.6), (12.6, 14.3), (7.6, 15.9)], rng, taper=(0.75, 0.8)))
-    # The merge commit, in the accent.
-    accent.append(ink_dot(6.5, 19.4, 2.0, rng))
+    # The first node: an open ring at the lower left.
+    ink.append(ink_stroke(arc_points(5.6, 17.6, 2.3, 200, 548), rng, width=BASE_WIDTH * 0.95))
+    # The arrow: rises from the first node and bends over to point at the second.
+    ink.append(ink_stroke([(5.9, 14.4), (6.6, 10.0), (9.6, 7.2), (14.6, 6.5)], rng, taper=(0.8, 0.9)))
+    ink.append(ink_stroke([(12.4, 4.2), (14.9, 6.5), (12.5, 8.9)], rng, taper=(0.75, 0.75), spline=False))
+    # The second node, in the accent.
+    accent.append(ink_dot(18.9, 6.5, 2.2, rng))
     return ink, accent
 
 
@@ -270,19 +268,39 @@ def icon_architecture(rng):
     return ink, accent
 
 
+def rounded_polyline(points, r=2.0, n=4):
+    """A polyline whose interior corners are rounded with radius r (quadratic corner curves)."""
+    out = [points[0]]
+    for prev, v, nxt in zip(points, points[1:], points[2:]):
+        din = (v[0] - prev[0], v[1] - prev[1])
+        dout = (nxt[0] - v[0], nxt[1] - v[1])
+        lin, lout = math.hypot(*din) or 1.0, math.hypot(*dout) or 1.0
+        rr = min(r, lin / 2, lout / 2)
+        a = (v[0] - din[0] / lin * rr, v[1] - din[1] / lin * rr)
+        b = (v[0] + dout[0] / lout * rr, v[1] + dout[1] / lout * rr)
+        for k in range(n + 1):
+            t = k / n
+            out.append(((1 - t) ** 2 * a[0] + 2 * (1 - t) * t * v[0] + t * t * b[0],
+                        (1 - t) ** 2 * a[1] + 2 * (1 - t) * t * v[1] + t * t * b[1]))
+    out.append(points[-1])
+    return out
+
+
 def icon_python(rng):
+    """The Python logo: two interlocking snakes, the upper one in ink and the lower one in the accent."""
     ink, accent = [], []
-    # A snake in two S-bends: the tail curls at the lower right, the head is a solid oval at the upper left.
-    body = [(18.2, 17.6), (18.9, 19.6), (15.6, 20.3), (11.0, 19.2), (9.6, 15.9), (12.0, 13.1), (15.5, 11.6),
-            (16.4, 8.3), (13.9, 5.6), (10.6, 5.3)]
-    ink.append(ink_stroke(body, rng, taper=(0.4, 1.0)))
-    ink.append(ink_blob(rotate(arc_points(8.3, 6.2, 1.0, 0, 340, n=12), (8.3, 6.2), 0), rng))
-    head = [(x, y) for x, y in arc_points(0, 0, 1.0, 0, 345, n=14)]
-    head = [(8.0 + 2.3 * x, 6.3 + 1.55 * y) for x, y in head]
-    ink[-1] = ink_blob(rotate(head, (8.0, 6.3), 12), rng)
-    # A forked accent tongue flicking out of the head.
-    accent.append(ink_stroke([(5.6, 6.9), (4.0, 7.3), (2.9, 6.6)], rng, width=BASE_WIDTH * 0.62, taper=(0.9, 0.7)))
-    accent.append(ink_stroke([(4.1, 7.3), (3.0, 8.4)], rng, width=BASE_WIDTH * 0.62, taper=(0.9, 0.7)))
+    # Upper snake: its head at the top, its body sweeping out to the left.
+    ink.append(ink_stroke(rounded_polyline([(12.0, 12.0), (8.0, 12.0), (8.0, 4.8), (10.0, 3.0), (14.0, 3.0),
+                                           (16.0, 4.8), (16.0, 10.0)], r=2.0), rng, taper=(0.8, 0.8)))
+    ink.append(ink_stroke(rounded_polyline([(12.4, 9.0), (3.0, 9.0), (3.0, 17.0), (8.0, 17.0)], r=2.0), rng,
+                          taper=(0.8, 0.8)))
+    ink.append(ink_dot(11.0, 6.0, 0.95, rng))
+    # Lower snake: the same shape turned half a turn, its tail at the bottom and its body to the right.
+    accent.append(ink_stroke(rounded_polyline([(12.0, 12.0), (16.0, 12.0), (16.0, 19.2), (14.0, 21.0), (10.0, 21.0),
+                                               (8.0, 19.2), (8.0, 14.0)], r=2.0), rng, taper=(0.8, 0.8)))
+    accent.append(ink_stroke(rounded_polyline([(11.6, 15.0), (21.0, 15.0), (21.0, 7.0), (16.0, 7.0)], r=2.0), rng,
+                             taper=(0.8, 0.8)))
+    accent.append(ink_dot(13.0, 18.0, 0.95, rng))
     return ink, accent
 
 
