@@ -1,3 +1,7 @@
+---
+overview: true
+---
+
 # Voxel Shading Guide Index
 
 These guides explain the source implementation behind the voxel-shading API surfaces documented in:

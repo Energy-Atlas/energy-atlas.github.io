@@ -1,9 +1,51 @@
-# Welcome to EnergyAtlas Wiki
+---
+overview: true
+---
+
+<div class="ui-hero">
+<h1><span>EnergyAtlas</span> <em>an agentic digital twin for city-scale energy insight.</em></h1>
+<p>Welcome to the Wiki for <a href="http://EnergyAtlas.io/">EnergyAtlas.io</a>, a comprehensive guide to understanding and using the EnergyAtlas platform for Urban Building Energy Modeling (UBEM).</p>
+</div>
 
 ![TitleImage](../assets/images/software-interface-cover.png){.full-width}
 
+## Subspaces {data-note="Eight parts"}
 
-Welcome to the Wiki for [EnergyAtlas.io](http://EnergyAtlas.io/) - a comprehensive guide to understanding and using the EnergyAtlas platform for Urban Building Energy Modeling (UBEM).
+<div class="ui-grid" markdown>
+
+-   [Quick Start](why-cities-need-energyatlas.md)
+
+    Why cities need EnergyAtlas, the fundamentals of urban building energy modeling, installation, and your first model.
+
+-   [Workflows](../workflows/index.md)
+
+    Step-by-step GUI workflows from urban data integration to results, and the voxel shading guides.
+
+-   [Architecture](../architecture/index.md)
+
+    Live diagrams of how EnergyAtlas turns geospatial input into simulated, aggregated results.
+
+-   [Python](../python/index.md)
+
+    Reference for the `energyatlas` Python connector package, generated from source.
+
+-   [WebAPI](../web-api/index.md)
+
+    The Web API endpoint inventory, and how to develop web jobs and Grasshopper components.
+
+-   [Library](../library/index.md)
+
+    The object reference, enums, and the archetype, weather, and retrofit measure libraries.
+
+-   [User Stories](../user-stories/index.md)
+
+    How EnergyAtlas is used in municipal planning, research, efficiency programs, and real estate.
+
+-   [Wiki Guide](../wiki-guide/index.md)
+
+    How to contribute to this Wiki: writing pages, adding images and plots, and the site map.
+
+</div>
 
 ## Overview
 

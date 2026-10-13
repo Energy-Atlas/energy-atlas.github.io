@@ -1,3 +1,7 @@
+---
+overview: true
+---
+
 # User Stories
 
 This section contains real-world use cases and success stories from EnergyAtlas users across different sectors and applications.

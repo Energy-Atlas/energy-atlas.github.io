@@ -1,6 +1,7 @@
 ---
 full_width: true
 likec4: true
+overview: true
 ---
 
 # Architecture Overview

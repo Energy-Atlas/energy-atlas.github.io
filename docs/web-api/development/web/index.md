@@ -1,3 +1,7 @@
+---
+overview: true
+---
+
 # EnergyAtlasWeb Development Guide
 
 EnergyAtlasWeb is the web and cross-platform frontend for EnergyAtlas. It consists of an
