@@ -84,11 +84,13 @@ def test_subspace_switcher_uses_distinct_icons_without_an_eyebrow_label():
         assert '<g class="ink"' in icon
         assert '<g class="accent"' in icon
 
-    # The ink follows the row's text colour; the terracotta accent is fixed.
+    # The ink follows the row's text colour; the accent takes the theme's accent blue.
     css = read(CSS)
     assert "fill: currentColor;" in block(css, ".wiki-space-icon .ink {")
-    assert "fill: var(--ui-icon-accent);" in block(css, ".wiki-space-icon .accent {")
-    assert "--ui-icon-accent: #c2704f;" in css
+    assert "fill: var(--ui-accent);" in block(css, ".wiki-space-icon .accent {")
+    assert "--ui-icon-accent" not in css
+    dropdown = block(css, ".wiki-space-switcher-summary .wiki-space-icon,\n.wiki-space-switcher-option .wiki-space-icon {")
+    assert "width: 26px;" in dropdown
     assert ".wiki-space-switcher-option-main {" in css
     assert ".wiki-space-switcher-check {" in css
     assert "--wiki-bar-height: 3.5rem;" in css

@@ -20,7 +20,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parents[2] / "tmp" / "custom-icons" / "subspace-icons"
 
 INK = "#3b3631"       # warm charcoal
-ACCENT = "#c2704f"    # muted terracotta
+ACCENT = "#125dae"    # the theme accent blue (light theme); the site swaps in --ui-accent
 
 BASE_WIDTH = 1.3      # stroke width in grid units (24-unit canvas)
 WOBBLE = 0.09         # displacement amplitude of the hand wobble, grid units
@@ -206,7 +206,7 @@ def icon_workflows(rng):
     ink.append(ink_stroke(arc_points(5.2, 17.0, 2.2, 200, 548), rng, width=BASE_WIDTH * 0.95))
     # The route: one loose S from the start, dipping and rising to the destination.
     ink.append(ink_stroke([(8.3, 16.3), (11.0, 16.9), (13.4, 15.2), (13.6, 11.6), (14.9, 8.9), (16.9, 7.7)], rng))
-    # Destination: a terracotta point.
+    # Destination: a accent point.
     accent.append(ink_dot(19.1, 6.9, 1.6, rng))
     return ink, accent
 
@@ -242,7 +242,7 @@ def icon_quick_start(rng):
     ink, accent = [], []
     # The compass ring.
     ink.append(ink_stroke(arc_points(12.0, 12.0, 8.2, -100, 268, n=24), rng))
-    # The needle on a north-east bearing: the terracotta north half filled, the south half drawn.
+    # The needle on a north-east bearing: the accent north half filled, the south half drawn.
     c, u, v = (12.0, 12.0), (0.707, -0.707), (0.707, 0.707)
     at = lambda a, b: (c[0] + u[0] * a + v[0] * b, c[1] + u[1] * a + v[1] * b)
     accent.append(ink_blob([at(4.9, 0.0), at(0.2, 1.25), at(-0.2, 0.0), at(0.2, -1.25)], rng))
@@ -272,7 +272,7 @@ def icon_python(rng):
     head = [(x, y) for x, y in arc_points(0, 0, 1.0, 0, 345, n=14)]
     head = [(8.0 + 2.3 * x, 6.3 + 1.55 * y) for x, y in head]
     ink[-1] = ink_blob(rotate(head, (8.0, 6.3), 12), rng)
-    # A forked terracotta tongue flicking out of the head.
+    # A forked accent tongue flicking out of the head.
     accent.append(ink_stroke([(5.6, 6.9), (4.0, 7.3), (2.9, 6.6)], rng, width=BASE_WIDTH * 0.62, taper=(0.9, 0.7)))
     accent.append(ink_stroke([(4.1, 7.3), (3.0, 8.4)], rng, width=BASE_WIDTH * 0.62, taper=(0.9, 0.7)))
     return ink, accent
@@ -288,7 +288,7 @@ def icon_web_api(rng):
 
 def icon_library(rng):
     ink, accent = [], []
-    # Two books upright, the second one terracotta, and a third leaning against them.
+    # Two books upright, the second one accent, and a third leaning against them.
     ink.append(ink_stroke(rounded_rect(3.4, 4.6, 8.0, 19.8, 1.0, rng), rng, closed=True, overshoot=0.9))
     accent.append(ink_blob(rounded_rect(9.4, 7.4, 13.0, 19.6, 0.9, rng, jitter=0.08), rng))
     lean = rotate(rounded_rect(14.2, 6.4, 18.4, 21.2, 1.0, rng), (14.2, 19.8), 16)
@@ -301,7 +301,7 @@ def icon_user_stories(rng):
     # A figure, head and shoulders, at the lower left.
     ink.append(ink_stroke(arc_points(8.2, 11.4, 2.7, -80, 290, n=16), rng, width=BASE_WIDTH * 0.95))
     ink.append(ink_stroke([(2.9, 20.4), (3.6, 17.0), (8.2, 15.4), (12.8, 17.0), (13.5, 20.4)], rng))
-    # Its story: a terracotta speech bubble at the upper right, its tail pointing to the figure.
+    # Its story: a accent speech bubble at the upper right, its tail pointing to the figure.
     bubble = [(17.6, 3.2), (20.7, 4.3), (21.0, 7.2), (18.6, 9.0), (15.7, 9.0), (14.7, 10.9), (14.8, 8.4),
               (13.8, 6.6), (14.6, 4.2)]
     accent.append(ink_stroke(bubble, rng, closed=True, overshoot=0.8, width=BASE_WIDTH * 0.95))
@@ -316,7 +316,7 @@ def icon_wiki_guide(rng):
     ink.append(ink_stroke([(12.0, 7.6), (15.6, 5.5), (20.5, 6.2), (20.5, 12.0), (20.4, 17.6), (15.7, 17.2),
                            (12.0, 19.2)], rng))
     ink.append(ink_stroke([(12.0, 8.6), (12.05, 13.4), (12.0, 18.2)], rng, width=BASE_WIDTH * 0.85))
-    # A terracotta ribbon marking the page.
+    # A accent ribbon marking the page.
     accent.append(ink_blob([(15.0, 5.9), (16.8, 5.6), (16.9, 12.4), (15.95, 11.2), (15.0, 12.6)], rng))
     return ink, accent
 

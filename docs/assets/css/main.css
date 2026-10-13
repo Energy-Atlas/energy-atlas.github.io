@@ -39,9 +39,6 @@
     --ui-warning: #ffc107;
     --ui-error: #f44336;
 
-    /* The muted terracotta of the hand-drawn icons: an icon-only accent, never text or state (spec 0.5). */
-    --ui-icon-accent: #c2704f;
-
     --ui-scrim: rgba(0, 0, 0, 0.6);
     --ui-scrollbar-thumb: rgba(255, 255, 255, 0.2);
     --ui-scrollbar-thumb-hover: rgba(255, 255, 255, 0.35);
@@ -282,7 +279,7 @@ button {
 
 /*
  * Subspace icons: the hand-drawn family (theme/icons/subspaces/). The ink takes the colour of the row's text; the
- * terracotta accent stays fixed in both themes.
+ * accent takes the theme's accent blue.
  */
 .wiki-space-icon {
     width: 20px;
@@ -296,12 +293,20 @@ button {
     height: 100%;
 }
 
+/* The dropdown shows the icons larger than the page tree would. */
+.wiki-space-switcher-summary .wiki-space-icon,
+.wiki-space-switcher-option .wiki-space-icon {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+}
+
 .wiki-space-icon .ink {
     fill: currentColor;
 }
 
 .wiki-space-icon .accent {
-    fill: var(--ui-icon-accent);
+    fill: var(--ui-accent);
 }
 
 /* Subspace names: the primary sans in bold, normal case (spec 0.7). */
@@ -346,7 +351,7 @@ button {
 }
 
 .wiki-space-switcher-option {
-    height: 2.75rem;
+    height: 3.25rem;
     padding: 0 1.25rem;
     display: flex;
     align-items: center;
@@ -1440,13 +1445,13 @@ button {
  * A cell whose title is a link is a link as a whole: the title link stretches over the cell. Other links in the cell
  * stay above it and keep their own targets.
  */
-.md-content .ui-grid > :is(ul, ol) > li > p:first-of-type > a:only-child::after {
+.md-content .ui-grid > :is(ul, ol) > li > p:first-of-type > a:only-of-type::after {
     content: "";
     position: absolute;
     inset: 0;
 }
 
-.md-content .ui-grid > :is(ul, ol) > li a:not(p:first-of-type > a:only-child) {
+.md-content .ui-grid > :is(ul, ol) > li a:not(p:first-of-type > a:only-of-type) {
     position: relative;
     z-index: 1;
 }
@@ -1457,13 +1462,97 @@ button {
 }
 
 /* The stretched link gives the cell its focus ring, so a keyboard user sees the whole cell selected. */
-.md-content .ui-grid > :is(ul, ol) > li > p:first-of-type > a:only-child:focus-visible {
+.md-content .ui-grid > :is(ul, ol) > li > p:first-of-type > a:only-of-type:focus-visible {
     outline: none;
 }
 
-.md-content .ui-grid > :is(ul, ol) > li > p:first-of-type > a:only-child:focus-visible::after {
+.md-content .ui-grid > :is(ul, ol) > li > p:first-of-type > a:only-of-type:focus-visible::after {
     outline: 2px solid var(--ui-accent);
     outline-offset: -2px;
+}
+
+/*
+ * Icon cards (`ui-grid ui-cards`, spec 0.13): no letter index; the subspace icon sits above the title (inlined by
+ * hooks/icons.py). On hover the card fills with a soft accent gradient and a faint, oversized copy of its icon, centred
+ * near the card's lower right and cropped by the card.
+ */
+.md-content .ui-icon,
+.md-content .ui-card-backdrop {
+    display: none;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li {
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    margin: 0;
+    background: linear-gradient(140deg, transparent 30%, color-mix(in srgb, var(--ui-accent) 16%, transparent) 100%);
+    opacity: 0;
+    transition: opacity 180ms ease;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) {
+    background: transparent;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within)::before {
+    opacity: 1;
+}
+
+.md-content .ui-cards .ui-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.md-content .ui-cards .ui-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.md-content .ui-cards .ui-icon .ink {
+    fill: var(--ui-text-primary);
+}
+
+.md-content .ui-cards .ui-icon .accent,
+.md-content .ui-cards .ui-card-backdrop :is(.ink, .accent) {
+    fill: var(--ui-accent);
+}
+
+.md-content .ui-cards .ui-card-backdrop {
+    position: absolute;
+    left: 80%;
+    top: 85%;
+    z-index: -1;
+    width: 175%;
+    aspect-ratio: 1;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 180ms ease;
+}
+
+.md-content .ui-cards .ui-card-backdrop svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-card-backdrop {
+    opacity: 0.14;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li > p:not(:first-of-type) {
+    color: var(--ui-text-secondary);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------

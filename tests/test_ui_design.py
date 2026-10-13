@@ -67,7 +67,10 @@ def test_surfaces_are_square_and_flat():
 
     for value in re.findall(r"border-radius:\s*([^;]+);", css):
         assert value.strip() == "0", value
-    assert "linear-gradient" not in css
+    # The only gradient is the hover wash of the Welcome icon cards (spec 0.13).
+    assert css.count("linear-gradient") == 1
+    gradient_rule = css.split("linear-gradient", 1)[0].rsplit("}", 1)[1]
+    assert ".ui-cards" in gradient_rule
     assert "backdrop-filter" not in css
 
 
@@ -121,12 +124,16 @@ def test_welcome_page_has_hero_then_cover_then_subspace_grid():
 
     hero = welcome.index('<div class="ui-hero">')
     cover = welcome.index("software-interface-cover.png")
-    grid = welcome.index('<div class="ui-grid" markdown>')
+    grid = welcome.index('<div class="ui-grid ui-cards" markdown>')
     assert hero < cover < grid
     assert "<span>EnergyAtlas</span>" in welcome
     assert "<em>agentic digital twins for city-scale energy insights.</em>" in welcome
 
-    cells = re.findall(r"^-   \[([^\]]+)\]\(", welcome.split('<div class="ui-grid" markdown>', 1)[1], re.MULTILINE)
+    cards = re.findall(r'^-   <span class="ui-icon" data-icon="([a-z-]+)"></span>\[([^\]]+)\]\(',
+                       welcome.split('<div class="ui-grid ui-cards" markdown>', 1)[1], re.MULTILINE)
+    cells = [title for _, title in cards]
+    for slug, _ in cards:
+        assert (ROOT / "theme" / "icons" / "subspaces" / f"{slug}.svg").is_file(), slug
     assert cells == [
         "Quick Start",
         "Workflows",
@@ -182,3 +189,24 @@ def test_development_notice_floats_and_repeats_in_the_sidebar():
     assert base.index('class="wiki-space-navigation"') < base.index('class="wiki-sidebar-notice"')
     assert base.index('class="wiki-sidebar-notice"') < base.index('class="wiki-sidebar-tools"')
     assert base.count("EnergyAtlas Wiki is still under active development.") == 2
+
+
+def test_icon_hook_inlines_icon_and_backdrop():
+    import hooks.icons as icons
+
+    html = icons.on_page_content('<p><span class="ui-icon" data-icon="workflows"></span><a href="x">W</a></p>', None, {}, [])
+    assert '<span class="ui-icon ui-icon-workflows" aria-hidden="true"><svg' in html
+    assert '<span class="ui-card-backdrop" aria-hidden="true"><svg' in html
+    assert "hooks/icons.py" in read("mkdocs.yml")
+
+
+def test_icon_cards_hover_with_gradient_and_cropped_backdrop():
+    css = read("docs/assets/css/main.css")
+
+    card = css.split(".md-content .ui-cards > :is(ul, ol) > li {", 1)[1].split("}", 1)[0]
+    assert "overflow: hidden;" in card
+    backdrop = css.split(".md-content .ui-cards .ui-card-backdrop {", 1)[1].split("}", 1)[0]
+    assert "left: 80%;" in backdrop
+    assert "top: 85%;" in backdrop
+    assert "width: 175%;" in backdrop
+    assert "linear-gradient" in css.split(".md-content .ui-cards > :is(ul, ol) > li::before {", 1)[1].split("}", 1)[0]

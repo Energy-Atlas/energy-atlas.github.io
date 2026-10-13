@@ -170,6 +170,7 @@ markdown_extensions:
 
 hooks:
   - hooks/wiki_metadata.py
+  - hooks/icons.py
 
 extra_css:
   - assets/css/fonts.css

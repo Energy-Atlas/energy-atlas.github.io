@@ -11,39 +11,39 @@ overview: true
 
 ## Subspaces {data-note="Eight parts"}
 
-<div class="ui-grid" markdown>
+<div class="ui-grid ui-cards" markdown>
 
--   [Quick Start](why-cities-need-energyatlas.md)
+-   <span class="ui-icon" data-icon="quick-start"></span>[Quick Start](why-cities-need-energyatlas.md)
 
-    Why cities need EnergyAtlas, the fundamentals of urban building energy modeling, installation, and your first model.
+    Install EnergyAtlas and build a first model.
 
--   [Workflows](../workflows/index.md)
+-   <span class="ui-icon" data-icon="workflows"></span>[Workflows](../workflows/index.md)
 
-    Step-by-step GUI workflows from urban data integration to results, and the voxel shading guides.
+    Step-by-step GUI and shading guides.
 
--   [Architecture](../architecture/index.md)
+-   <span class="ui-icon" data-icon="architecture"></span>[Architecture](../architecture/index.md)
 
-    Live diagrams of how EnergyAtlas turns geospatial input into simulated, aggregated results.
+    Live diagrams of the pipeline.
 
--   [Python](../python/index.md)
+-   <span class="ui-icon" data-icon="python"></span>[Python](../python/index.md)
 
-    Reference for the `energyatlas` Python connector package, generated from source.
+    The Python connector reference.
 
--   [WebAPI](../web-api/index.md)
+-   <span class="ui-icon" data-icon="web-api"></span>[WebAPI](../web-api/index.md)
 
-    The Web API endpoint inventory, and how to develop web jobs and Grasshopper components.
+    Endpoints and web development.
 
--   [Library](../library/index.md)
+-   <span class="ui-icon" data-icon="library"></span>[Library](../library/index.md)
 
-    The object reference, enums, and the archetype, weather, and retrofit measure libraries.
+    Objects, enums, and resources.
 
--   [User Stories](../user-stories/index.md)
+-   <span class="ui-icon" data-icon="user-stories"></span>[User Stories](../user-stories/index.md)
 
-    How EnergyAtlas is used in municipal planning, research, efficiency programs, and real estate.
+    EnergyAtlas in practice.
 
--   [Wiki Guide](../wiki-guide/index.md)
+-   <span class="ui-icon" data-icon="wiki-guide"></span>[Wiki Guide](../wiki-guide/index.md)
 
-    How to contribute to this Wiki: writing pages, adding images and plots, and the site map.
+    How to contribute to this Wiki.
 
 </div>
 
