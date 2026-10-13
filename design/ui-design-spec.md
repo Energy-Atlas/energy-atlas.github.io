@@ -1,36 +1,35 @@
-# BEMGen documentation site — UI Design Specification
+# EnergyAtlas Wiki — UI Design Specification
 
-This specification restyles the BEMGen documentation site into the visual family of the EnergyAtlas Wiki. It began as the EnergyAtlas Wiki UI design specification; section 0 records the decisions taken for BEMGen. **Where section 0 and a later section disagree, section 0 wins.**
+This specification restyles the EnergyAtlas Wiki into the grid-framed, editorial visual language that the BEMGen documentation site and the EnergyAtlas dev-skills site already use. It began as the EnergyAtlas Wiki UI design specification, went to the BEMGen site, and came back here; section 0 records the decisions taken for the Wiki. **Where section 0 and a later section disagree, section 0 wins.**
 
 ---
 
-## 0. BEMGen Implementation Decisions
+## 0. EnergyAtlas Wiki Implementation Decisions
 
-Decided by the owner on 2026-10-07. These are implementation rules, not one-off clarifications.
+Decided by the owner on 2026-10-12. These are implementation rules, not one-off clarifications. The guidelines are applied softly: the Wiki has a deeper page hierarchy than the sister sites and its own theme, so section 0 records where it deliberately differs from them.
 
 ### 0.1 Brand
 
-- The site stays **BEMGen**. This is a visual-family alignment with EnergyAtlas, not a rename.
-- Keep the site title, the BEMGen identity, and the existing logo and favicon. Do not add "EnergyAtlas" branding to the header, title, footer, or pages.
-- The family resemblance comes from typography, palette, and UI structure.
+- The site stays **EnergyAtlas Wiki**, with its existing logo and favicon (`docs/assets/images/icon.svg`) and the sidebar wordmark "EnergyAtlas Wiki".
+- The family resemblance with BEMGen and dev-skills comes from typography, palette, and UI structure.
 
 ### 0.2 Sources of truth
 
-- **Reference UI:** a screenshot of the ArtCraft website, supplied by the owner. It is the visual source for grid framing, borders, card construction, typography hierarchy, spacing, and navigation character. The image is not kept in this repository; section 0.11 describes it.
-- **Palette:** the live EnergyAtlas Wiki implementation, `assets/css/main.css` of <https://chengxuan-li.github.io/EnergyAtlasWiki/>. If it diverges from the hex values in this document, the wiki's CSS is authoritative, except where section 0.6 adjusts a value for contrast. The values here match the wiki as of 2026-10-07.
+- **Reference UI:** the BEMGen documentation site: this document's body, its fonts, and its rendered pages. BEMGen's own reference, a screenshot of the ArtCraft website, is not kept here; section 0.12 describes it.
+- **Palette:** this repository. The Wiki's `docs/assets/css/main.css` was the palette source for the sister sites; as of 2026-10-12 it carries the contrast-adjusted tokens of section 0.6, so it stays the source of truth for them.
+- **Theme:** the Wiki does not use Material for MkDocs. It has its own MkDocs theme (`theme/base.html`, `theme/main.html`) and stylesheet. Where the body of this document names a Material feature, section 0.14 gives the Wiki's equivalent.
 
 ### 0.3 Theme behaviour
 
-- The default theme follows the system preference (`prefers-color-scheme`), and the existing light/dark toggle stays.
+- A stored choice (`energyatlas-wiki-theme` in `localStorage`) wins; otherwise the system preference (`prefers-color-scheme`) decides, and dark is used only when the browser cannot report one. The light/dark toggle stays.
 - Never force dark mode. A visitor whose system prefers light gets light first.
 - Dark mode receives the strongest version of the reference visual language; light mode keeps the same grid, typography, and framing.
 
 ### 0.4 Fonts
 
-- Families: **Geist** (primary sans), **Geist Mono** (technical and monospace UI), **Cormorant Garamond** (sparse editorial serif accent, italic).
-- Self-host them. The browser must not contact Google Fonts or any other font host when the site is viewed.
-- Prefer Material for MkDocs' `privacy` plugin, which downloads external fonts at build time and serves them from the site. If it cannot cover a family, vendor the webfont files under `docs/assets/fonts/` with their licences and declare them with `@font-face`.
-- **Outcome:** the fonts are vendored. The `privacy` plugin creates symbolic links for the extensionless Google Fonts style-sheet URL; Windows refuses them without developer mode, and the plugin's warning fails `mkdocs build --strict` on the Windows machines that build this site. The Latin and Latin Extended subsets (variable Geist and Geist Mono, Cormorant Garamond italic 500) are in `docs/assets/fonts/` with their OFL licences, declared in `docs/assets/stylesheets/fonts.css`; `theme.font` is `false`, so Material loads no font itself. Builds need no network.
+- Families: **Geist** (primary sans), **Geist Mono** (technical and monospace UI, and code), **Cormorant Garamond** (sparse editorial serif accent, italic). They replace Roboto Flex and Cascadia Code.
+- Self-hosted: the Latin and Latin Extended WOFF2 subsets (variable Geist and Geist Mono, Cormorant Garamond italic 500) are copied from the BEMGen documentation site into `docs/assets/fonts/` with their OFL licences, and declared in `docs/assets/css/fonts.css`. The browser contacts no font host; the former Google Fonts import is removed.
+- `theme/base.html` preloads `geist-latin.woff2` and `geist-mono-latin.woff2`.
 
 ### 0.5 Colour roles
 
@@ -42,14 +41,14 @@ Decided by the owner on 2026-10-07. These are implementation rules, not one-off 
 | Error | `#f44336` | `#c5221f` | errors, destructive actions, failures |
 | Primary (brand) | `#003978` | `#003978` | deep branded **fill or background** only |
 
-- Red is restricted to error, destructive, and failure states. Do not use red (`#f1392a`, `#c92d22`) as a decorative secondary brand accent anywhere in the documentation UI.
+- Red is restricted to error, destructive, and failure states. The former secondary brand red (`#f1392a`, `#c92d22`) is no longer a decorative accent anywhere in the Wiki; the primary-to-red gradient is removed.
 - Amber/yellow means warning, green means success, blue means links, navigation, information, and active/selected states.
 - `#003978` is never text or a meaningful border on a dark background (1.86:1 on black). Text on a `#003978` fill is white or `#e5e5e5`.
-- Admonition mapping: `note`, `info`, `abstract`, `tip` use the info blue; `success` green; `warning` amber; `danger`, `failure`, `bug`, `error` red.
+- Syntax highlighting keeps its own palette (Monokai in dark, a light variant in light); it is code colouring, not UI accent.
 
 ### 0.6 Contrast
 
-The hex values of this document are not immutable where they fail contrast. Targets (WCAG 2.2 AA):
+Targets (WCAG 2.2 AA):
 
 - text below 24px (or 18.66px bold), including all 10–12px mono labels: at least 4.5:1 against every surface it sits on;
 - large text: at least 3:1;
@@ -58,83 +57,101 @@ The hex values of this document are not immutable where they fail contrast. Targ
 
 Adjusted and added tokens:
 
-| Token | Theme | Spec value | Used value | Contrast of used value |
+| Token | Theme | Former Wiki value | Used value | Contrast of used value |
 | --- | --- | --- | --- | --- |
-| `--ea-text-muted` | dark | `#808080` (4.41:1 on `#1a1a1a`) | `#999999` | 7.37 on `#000000`, 6.11 on `#1a1a1a`, 5.04 on `#2a2a2a` |
-| `--ea-text-muted` | light | `#6f7a89` (4.36:1 on white) | `#5f6b7a` (from the wiki's own palette) | 5.43 on `#ffffff`, 5.05 on `#f4f7fb`, 4.61 on `#e7edf5` |
-| `--ea-border-subtle` | dark | `#404040` | `#404040` | decorative grid rules only |
-| `--ea-border-subtle` | light | `#cfd8e5` | `#cfd8e5` | decorative grid rules only |
-| `--ea-border-interactive` | dark | — | `#6b6b6b` | 3.94 on `#000000`, 3.27 on `#1a1a1a` |
-| `--ea-border-interactive` | light | — | `#768599` | 3.76 on `#ffffff`, 3.50 on `#f4f7fb`, 3.19 on `#e7edf5` |
+| `--ui-text-muted` | dark | `#808080` (4.41:1 on `#1a1a1a`) | `#999999` | 7.37 on `#000000`, 6.11 on `#1a1a1a`, 5.04 on `#2a2a2a` |
+| `--ui-text-muted` | light | `#6f7a89` (4.36:1 on white) | `#5f6b7a` | 5.43 on `#ffffff`, 5.05 on `#f4f7fb`, 4.61 on `#e7edf5` |
+| `--ui-border-subtle` | dark | `#404040` | `#404040` | decorative grid rules only |
+| `--ui-border-subtle` | light | `#cfd8e5` | `#cfd8e5` | decorative grid rules only |
+| `--ui-border-interactive` | dark | — | `#6b6b6b` | 3.94 on `#000000`, 3.27 on `#1a1a1a` |
+| `--ui-border-interactive` | light | — | `#768599` | 3.76 on `#ffffff`, 3.50 on `#f4f7fb`, 3.19 on `#e7edf5` |
 
-- `--ea-border` in later sections means `--ea-border-subtle` for grid framing, strips, cells, tables, and code blocks, and `--ea-border-interactive` for inputs, buttons, and other controls.
+- The tokens use the prefix `--ui-`. `--ea-border` in later sections means `--ui-border-subtle` for grid framing, strips, cells, tables, and code blocks, and `--ui-border-interactive` for inputs, buttons, and other controls; every other `--ea-` token is the `--ui-` token of the same name.
 - Focus and active states use the accent colour, which passes everywhere.
 - Light-theme success and warning text fall below 4.5:1 on `#e7edf5`; do not set small state-coloured text on the emphasis surface.
 
-### 0.7 Landing page
+### 0.7 Page shell
 
-A real but restrained hero, followed immediately by the shared-border grid. Not a marketing page.
+The Wiki keeps its sidebar shell; it does **not** adopt the sister sites' top header with tabs. Eight subspaces with nested groups do not fit a tab row, and the subspace switcher already solves that navigation.
 
+- **No top header.** The left sidebar holds, top to bottom: the brand row, the subspace switcher, the current subspace's page tree, and the tool row (theme toggle, edit this page, GitHub repository, collapse). Each part is separated by a thin horizontal rule; the sidebar's right edge is the page frame's left rule.
+- **Subspace switcher:** one full-width row with the subspace icon and its name in small uppercase mono; its menu is a flat, square list with thin rules between options, the current option marked by an accent edge and a check.
+- **Page tree:** muted Geist labels; the active page in primary text with a 2px accent edge at the left, not a filled block. Groups are collapsible rows with a chevron; nested levels are indented and joined by a thin vertical rule.
+- **Tool row:** square 32px controls with interactive borders; the theme toggle is a square two-cell switch (sun, moon) whose active cell is inverted.
+- **Frame:** the page shell is bounded on the right by a thin vertical rule when the viewport is wider than the shell; the table of contents sits in its own column behind a thin vertical rule.
+- **Collapse and drawer:** the desktop collapse control and the below-1081px drawer stay as they work today; both become square and flat (no drop shadows, no blur behind the drawer).
+- **Scroll progress:** a 2px accent rule along the bottom edge of the window.
+- **Development notice:** the bottom "WIP EnergyAtlas Wiki" banner stays, as a flat strip with a top rule, a mono uppercase title, and a square button.
+
+### 0.8 Welcome page
+
+The site root keeps redirecting to Quick Start › Welcome (`quick-start/index.md`). The Welcome page carries the hero; there is no separate landing page.
+
+- Order: hero, the cover screenshot, the `Subspaces` strip with a shared-border grid of the eight subspaces (cells `A`–`H`, each linking to the subspace's first page), then the existing content with strips on its `##` headings.
 - Headline, on two lines:
 
   ```text
-  Generate building energy models
-  at urban scale.
+  EnergyAtlas
+  an agentic digital twin for city-scale energy insight.
   ```
 
-  `Generate building energy models` in Geist; `at urban scale.` in Cormorant Garamond italic.
-- Supporting copy is short: one or two sentences.
-- Below the hero, the existing landing-page cards (User guide, Developer documentation) become one continuous shared-border grid (section 6), not separate cards.
-- The landing page hides both sidebars but keeps their widths as empty margins, without their vertical rules, so its text starts where the text of every other page starts. Only the content moves: strips and the top and bottom rules of grids still run from frame to frame. Any page that hides a sidebar behaves the same way.
-- The hero headline is sized to the hero's width, so `Generate building energy models` stays on one line on desktop.
-- No oversized CTAs, imagery, or animation.
+  `EnergyAtlas` in Geist; the second line in Cormorant Garamond italic. Supporting copy is one or two sentences.
+- The headline is sized to the hero's width (container query units), so the serif line takes at most two lines on desktop.
+- The Welcome page keeps both sidebars; no hidden-sidebar insets are needed.
+- No oversized CTAs, imagery beyond the existing cover, or animation.
 
-### 0.8 Numbered section strips
+### 0.9 Numbered section strips
 
-Section strips (`01 / USER GUIDE`, section 7) appear only on:
+Strips (`01 / OVERVIEW`, section 7) are turned on per page with the front-matter flag `overview: true`. They then number every `##` heading of that page automatically, keeping its text and anchor; an optional right-hand annotation comes from the heading's `data-note` attribute (`## Title {data-note="Model pipeline"}`).
 
-- the landing page;
-- major section index pages;
-- other deliberately designed overview or navigation pages.
+They are on:
 
-Do not number `##` headings automatically on ordinary documentation pages; they keep normal typographic hierarchy.
+- the Welcome page and the subspace overview pages: Workflows, Architecture, Library, User Stories;
+- the section index pages of nested groups: Shading Guides, the Web API Development Guide, and Web Development.
 
-### 0.9 Content width
+They are not on ordinary pages, the Wiki Guide (its `##` headings include Markdown examples), the object reference, or the generated Python and Web API references.
 
-- The 760–900px prose width (section 11) is for readable long-form content, not a universal container.
-- Exempt: API and component-reference pages, large diagrams, data and reference matrices, and wide tables.
+### 0.10 Content width
+
+- Long-form prose (paragraphs, lists, block quotes, headings) is capped at 52rem (832px) inside the article column.
+- Exempt, using the full article column (up to 960px): tables, code blocks, images, Plotly charts, diagrams, strips, and grids. Pages with `full_width: true` (the Architecture subspace) have no prose cap.
 - Wide tables sit in a bounded horizontal-scrolling container; the page viewport itself must never overflow horizontally.
 
-### 0.10 Breadcrumbs
+### 0.11 Breadcrumbs
 
-- Turn breadcrumbs on (`navigation.path` in Material for MkDocs).
-- Restrained technical style: small Geist or Geist Mono, muted colour, separators in the same muted colour, no bar, background, or border of their own.
+- Breadcrumbs show the page's full ancestry in the navigation (subspace, then every group), not only the first two levels.
+- Restrained technical style: small uppercase Geist Mono, muted colour, `/` separators in the same colour, no bar, background, or border.
 
-### 0.11 The reference screenshot, described
+### 0.12 The reference screenshot, described
 
-What to take from the ArtCraft reference:
+What the BEMGen site took from the ArtCraft reference, and what the Wiki takes from it in turn:
 
 - **Surface:** near-black page background; content in off-white, secondary text in mid-grey.
-- **Page frame:** the content column is bounded by two full-height vertical rules, with empty margins outside them. Horizontal rules run between sections and meet the frame; small `+` registration marks sit at the intersections, like a drawing sheet.
-- **Header:** low, one line, thin bottom rule. Logo at the left; nav labels in small uppercase, widely tracked monospace; thin vertical dividers separate groups of items. The active item is a small inverted block (light fill, dark text) inside a thin blue rectangular outline. The primary action at the far right is a full-height inverted block.
-- **Section strip:** about 48px high between two horizontal rules: `02 / OWNERSHIP` at the left and a right-aligned annotation (`FREE & OPEN SOURCE`) at the right, both small, uppercase, tracked mono, muted.
-- **Hero cell:** generous padding and empty space; a large, very bold sans headline with tight leading over two lines, one word set in a serif italic inline; one short supporting paragraph in grey, roughly 60 characters wide.
-- **Feature row:** three equal cells sharing their borders with each other and with the hero cell above. Each cell: a one-letter mono index (`A`, `B`, `C`) at the top left in muted grey, a bold title of about 28px, two lines of grey description, and optionally a small square outlined button with a mono uppercase label and a small icon.
-- **Not adopted:** the right-hand scroll ruler with tick numbers and percentage, and the oversized outline section names in the right margin. They are page-specific decoration and conflict with section 19.
-
-### 0.12 Stable page changes
-
-Moving between pages must not flicker or shift the layout:
-
-- `navigation.instant` is on: a link swaps only the page content, so the header, sidebars, scrollbars, and loaded fonts persist. `navigation.instant.progress` shows the load as a thin accent rule along the top edge.
-- `html` reserves the scrollbar's width (`scrollbar-gutter: stable`), so short and long pages have the same content width.
-- `overrides/main.html` preloads `geist-latin.woff2` and `geist-mono-latin.woff2`, so a full page load draws its first frame without a font swap.
+- **Page frame:** the content column is bounded by two full-height vertical rules, with empty margins outside them. Horizontal rules run between sections and meet the frame.
+- **Header:** low, one line, thin bottom rule; nav labels in small uppercase, widely tracked monospace. The active item is a small inverted block inside a thin blue rectangular outline. (The Wiki applies this treatment to its sidebar rows rather than a header, section 0.7.)
+- **Section strip:** about 48px high between two horizontal rules: `02 / OWNERSHIP` at the left and a right-aligned annotation at the right, both small, uppercase, tracked mono, muted.
+- **Hero cell:** generous padding and empty space; a large, very bold sans headline with tight leading, a phrase set in a serif italic; one short supporting paragraph in grey, roughly 60 characters wide.
+- **Feature row:** equal cells sharing their borders. Each cell: a one-letter mono index (`A`, `B`, `C`) at the top left in muted grey, a bold title, two lines of grey description, and optionally a small square outlined button with a mono uppercase label.
+- **Not adopted:** the right-hand scroll ruler with tick numbers and percentage, the oversized outline section names in the right margin, and the `+` registration marks. They are page-specific decoration and conflict with section 19.
 
 ### 0.13 Grid cells
 
-- A cell whose title is a link is clickable as a whole and goes to the title's address; hovering it shifts the surface and turns the title blue. Other links in the cell (its button, a link in its description) keep their own targets.
-- A cell's text is padded by the same gutter as the prose, so cell text, strip labels, and paragraphs share one left edge.
-- Every cell is closed on all four sides. Where an empty sidebar margin (section 0.7) moves a grid in from the frame, the grid draws its own outer left and right rules at the margin; elsewhere the frame lines close it.
+- A cell whose title is a link is clickable as a whole and goes to the title's address; hovering it shifts the surface and turns the title blue. Other links in the cell keep their own targets.
+- A cell's text is padded by the same gutter as the strip labels, so cell text and strip labels share one left edge.
+- Every cell is closed on all four sides.
+- Markup: `md_in_html` is enabled; a grid is `<div class="ui-grid" markdown>` around a Markdown list whose items start with a linked title.
+
+### 0.14 Material features and their Wiki equivalents
+
+| Body of this document | EnergyAtlas Wiki |
+| --- | --- |
+| Header and tabs (sections 9.1, 21) | Sidebar brand row and subspace switcher (section 0.7) |
+| `navigation.path` breadcrumbs | `theme/main.html` breadcrumbs from `page.ancestors` (section 0.11) |
+| `navigation.instant` | Not available. Page changes stay stable through preloaded fonts, `scrollbar-gutter: stable`, and removing the former content fade-out and fade-in on every navigation. |
+| `slate` / `default` schemes | `:root` (dark) and `:root[data-theme="light"]` |
+| Admonitions (section 14) | The Wiki does not enable admonitions; block quotes take the panel treatment. |
+| Search (section 15) | The Wiki has no search interface; none is added in this redesign. |
+| `grid cards` | `ui-grid` (section 0.13) |
 
 ---
 
@@ -321,14 +338,14 @@ Prefer the Google Fonts version when available.
 
 Use it only for selective phrases in large display headings.
 
-Example (the BEMGen landing headline, section 0.7):
+Example (the Wiki's Welcome headline, section 0.8):
 
 ```text
-Generate building energy models
-at urban scale.
+EnergyAtlas
+an agentic digital twin for city-scale energy insight.
 ```
 
-The phrase *at urban scale.* uses Cormorant italic while the rest remains Geist.
+The second line uses Cormorant italic while `EnergyAtlas` remains Geist.
 
 Do not use Cormorant for:
 
@@ -345,7 +362,7 @@ It should function as a restrained editorial accent.
 
 # 4. Color System
 
-Use the existing EnergyAtlas palette as the source of truth: the wiki's `assets/css/main.css` (section 0.2), with the contrast adjustments of section 0.6. The blocks below already include those adjustments.
+Use the existing EnergyAtlas palette as the source of truth: the Wiki's `docs/assets/css/main.css` (section 0.2), with the contrast adjustments of section 0.6. The blocks below already include those adjustments.
 
 ## 4.1 Dark Theme
 
@@ -486,7 +503,7 @@ The grid should create continuity across the page.
 
 # 7. Section Headers
 
-Use thin section-index strips for major content areas, on the pages listed in section 0.8 only.
+Use thin section-index strips for major content areas, on the pages listed in section 0.9 only.
 
 Example:
 
@@ -690,7 +707,7 @@ Recommended article width:
 max-width: 760px 900px;
 ```
 
-This width is for long-form prose only. Reference pages, large diagrams, data matrices, and wide tables are exempt, and wide tables scroll inside a bounded container (section 0.9).
+This width is for long-form prose only. Reference pages, large diagrams, data matrices, and wide tables are exempt, and wide tables scroll inside a bounded container (section 0.10).
 
 Use generous vertical rhythm.
 
@@ -864,17 +881,17 @@ letter-spacing: -0.03em;
 
 Use Cormorant italic selectively within the heading if editorial emphasis is desirable.
 
-BEMGen's headline (section 0.7):
+The Wiki's headline (section 0.8):
 
 ```text
-Generate building energy models
-at urban scale.
+EnergyAtlas
+an agentic digital twin for city-scale energy insight.
 ```
 
 Treatment:
 
-- `Generate building energy models` — Geist
-- `at urban scale.` — Cormorant Garamond italic
+- `EnergyAtlas` — Geist
+- `an agentic digital twin for city-scale energy insight.` — Cormorant Garamond italic
 
 Use sparingly. The hero stays restrained and is followed immediately by the shared-border grid.
 
@@ -1032,7 +1049,7 @@ Recommended CSS token structure:
 }
 ```
 
-For light mode, swap the color tokens (section 4.2) while preserving structure. Which set applies follows the active Material scheme (`slate` for dark, `default` for light), chosen by the system preference and the toggle (section 0.3); dark is not the default.
+For light mode, swap the color tokens (section 4.2) while preserving structure. Which set applies follows `data-theme` on the root element (`:root` for dark, `:root[data-theme="light"]` for light), chosen by the stored choice, the system preference, and the toggle (section 0.3).
 
 ---
 

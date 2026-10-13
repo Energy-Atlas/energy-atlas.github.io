@@ -1,0 +1,12 @@
+# Agent instructions
+
+## UI and visual styling
+
+- UI and visual styling changes follow `design/ui-design-spec.md`. Its section 0 records this site's decisions and wins
+  over the rest of the document.
+- `design/` is not part of the site: it sits outside `docs/` and is never published.
+- Hand-maintained assets: `docs/assets/css/`, `docs/assets/js/`, `docs/assets/images/`, and `docs/assets/fonts/` (vendored
+  webfonts with their OFL licences; replace them only together with their licence files).
+- Never hand-edit generated pages (`docs/python/index.md`, `docs/web-api/index.md`) or the generated LikeC4 viewer
+  bundle; style them through CSS only.
+- `mkdocs build --strict` and `pytest -q` pass before every commit.
