@@ -1555,6 +1555,216 @@ button {
     color: var(--ui-text-secondary);
 }
 
+/*
+ * Icon card animations (spec 0.13): every subspace icon has its own short animation, played once when its card is
+ * hovered or focused. The marks are the light icon's paths in drawing order (design/icons/generate_subspace_icons.py);
+ * tests/test_ui_design.py checks that each icon still has the marks these rules address.
+ */
+.md-content .ui-cards .ui-icon :is(g, path) {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+/* Quick Start: the needle (ink 2, accent 1) swings about the compass centre and settles. */
+.md-content .ui-cards .ui-icon-quick-start :is(.ink path:nth-of-type(2), .accent path) {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-quick-start :is(.ink path:nth-of-type(2), .accent path) {
+    animation: ui-icon-swing 1100ms ease-in-out;
+}
+
+/* Workflows: the arrow (ink 2) draws from the start ring, its head (ink 3) lands, and the node (accent) pops. */
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-workflows .ink path:nth-of-type(2) {
+    animation: ui-icon-draw-up-right 520ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-workflows .ink path:nth-of-type(3) {
+    animation: ui-icon-land-right 700ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-workflows .accent path {
+    animation: ui-icon-pop 900ms ease-out;
+}
+
+/* Architecture: the connectors (ink 3, 4) draw downwards; the blocks (ink 1, ink 2, accent) pop in turn. */
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .ink path:nth-of-type(1) {
+    animation: ui-icon-pop-early 500ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .ink path:is(:nth-of-type(3), :nth-of-type(4)) {
+    animation: ui-icon-draw-down 600ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .ink path:nth-of-type(2) {
+    animation: ui-icon-pop 800ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-architecture .accent path {
+    animation: ui-icon-pop 950ms ease-out;
+}
+
+/* Python: the two snakes (ink, accent) pull apart and lock back together. */
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-python .ink {
+    animation: ui-icon-part-up-left 800ms ease-in-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-python .accent {
+    animation: ui-icon-part-down-right 800ms ease-in-out;
+}
+
+/* WebAPI: the brackets (ink 1, 2) spread; the slash (accent) tilts. */
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-web-api .ink path:nth-of-type(1) {
+    animation: ui-icon-nudge-left 700ms ease-in-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-web-api .ink path:nth-of-type(2) {
+    animation: ui-icon-nudge-right 700ms ease-in-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-web-api .accent path {
+    animation: ui-icon-tilt 700ms ease-in-out;
+}
+
+/* Library: the leaning book (ink 2) straightens up and settles back; the accent book lifts. */
+.md-content .ui-cards .ui-icon-library .ink path:nth-of-type(2) {
+    transform-origin: 0% 100%;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-library .ink path:nth-of-type(2) {
+    animation: ui-icon-straighten 900ms ease-in-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-library .accent path {
+    animation: ui-icon-lift 900ms ease-in-out;
+}
+
+/* User Stories: the speech bubble (accent) pops out from its tail; the head (ink 1) nods. */
+.md-content .ui-cards .ui-icon-user-stories .accent path {
+    transform-origin: 0% 100%;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-user-stories .accent path {
+    animation: ui-icon-speak 650ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-user-stories .ink path:nth-of-type(1) {
+    animation: ui-icon-nod 700ms ease-in-out;
+}
+
+/* Wiki Guide: the ribbon (accent) drops in from the top edge; the right page (ink 2) flutters at the spine. */
+.md-content .ui-cards .ui-icon-wiki-guide .accent path {
+    transform-origin: 50% 0%;
+}
+
+.md-content .ui-cards .ui-icon-wiki-guide .ink path:nth-of-type(2) {
+    transform-origin: 0% 50%;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-wiki-guide .accent path {
+    animation: ui-icon-drop 700ms ease-out;
+}
+
+.md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-wiki-guide .ink path:nth-of-type(2) {
+    animation: ui-icon-page 800ms ease-in-out;
+}
+
+@keyframes ui-icon-swing {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-40deg); }
+    50% { transform: rotate(24deg); }
+    72% { transform: rotate(-10deg); }
+    88% { transform: rotate(4deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes ui-icon-draw-up-right {
+    from { clip-path: inset(100% 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes ui-icon-draw-down {
+    0%, 25% { clip-path: inset(0 0 100% 0); }
+    100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes ui-icon-land-right {
+    0%, 55% { opacity: 0; transform: translateX(-1.2px); }
+    100% { opacity: 1; transform: none; }
+}
+
+@keyframes ui-icon-pop {
+    0%, 55% { transform: scale(1); }
+    78% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+@keyframes ui-icon-pop-early {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+@keyframes ui-icon-part-up-left {
+    0%, 100% { transform: none; }
+    45% { transform: translate(-1.4px, -1.4px); }
+}
+
+@keyframes ui-icon-part-down-right {
+    0%, 100% { transform: none; }
+    45% { transform: translate(1.4px, 1.4px); }
+}
+
+@keyframes ui-icon-nudge-left {
+    0%, 100% { transform: none; }
+    45% { transform: translateX(-1.6px); }
+}
+
+@keyframes ui-icon-nudge-right {
+    0%, 100% { transform: none; }
+    45% { transform: translateX(1.6px); }
+}
+
+@keyframes ui-icon-tilt {
+    0%, 100% { transform: none; }
+    45% { transform: rotate(16deg); }
+}
+
+@keyframes ui-icon-straighten {
+    0%, 100% { transform: none; }
+    45% { transform: rotate(-15deg); }
+    70% { transform: rotate(3deg); }
+}
+
+@keyframes ui-icon-lift {
+    0%, 100% { transform: none; }
+    40% { transform: translateY(-1.8px); }
+}
+
+@keyframes ui-icon-speak {
+    0% { opacity: 0.2; transform: scale(0.35); }
+    60% { opacity: 1; transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ui-icon-nod {
+    0%, 100% { transform: none; }
+    35% { transform: translateY(0.9px); }
+    65% { transform: translateY(-0.4px); }
+}
+
+@keyframes ui-icon-drop {
+    0% { transform: scaleY(0.2); }
+    60% { transform: scaleY(1.12); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes ui-icon-page {
+    0%, 100% { transform: none; }
+    40% { transform: scaleX(0.84) skewY(-3deg); }
+}
+
 /* ---------------------------------------------------------------------------------------------------------------------
  * Welcome hero (spec sections 17 and 0.8)
  * ------------------------------------------------------------------------------------------------------------------ */
@@ -1978,5 +2188,6 @@ button {
     *::before,
     *::after {
         transition: none !important;
+        animation: none !important;
     }
 }

@@ -215,3 +215,38 @@ def test_icon_cards_hover_with_gradient_and_cropped_backdrop():
     assert "top: 72%;" in backdrop
     assert "width: 105%;" in backdrop
     assert "linear-gradient" in css.split(".md-content .ui-cards > :is(ul, ol) > li::before {", 1)[1].split("}", 1)[0]
+
+
+# The hover animations address each light icon's marks by position (ink paths, accent paths), in drawing order.
+ICON_MARKS = {
+    "quick-start": (2, 1),
+    "workflows": (3, 1),
+    "architecture": (4, 1),
+    "python": (3, 3),
+    "web-api": (2, 1),
+    "library": (2, 1),
+    "user-stories": (2, 1),
+    "wiki-guide": (3, 1),
+}
+
+
+def test_each_card_icon_has_a_hover_animation_on_the_marks_it_addresses():
+    css = read("docs/assets/css/main.css")
+    hover = ".md-content .ui-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-icon-"
+    for slug, (ink, accent) in ICON_MARKS.items():
+        svg = read(f"theme/icons/subspaces/{slug}-light.svg")
+        assert svg.split('class="ink"', 1)[1].split("</g>", 1)[0].count("<path") == ink, slug
+        assert svg.split('class="accent"', 1)[1].split("</g>", 1)[0].count("<path") == accent, slug
+        rules = [r for r in css.split("}") if hover + slug + " " in r and "animation:" in r]
+        assert rules, f"no hover animation for {slug}"
+        for rule in rules:
+            for n in re.findall(r"nth-of-type\((\d+)\)", rule.split("{")[0]):
+                assert int(n) <= max(ink, accent), (slug, n)
+            name = re.search(r"animation:\s*([\w-]+)", rule).group(1)
+            assert f"@keyframes {name} " in css, name
+
+
+def test_icon_animations_stop_for_reduced_motion():
+    css = read("docs/assets/css/main.css")
+    reduced = css.split("@media (prefers-reduced-motion: reduce)", 1)[1].split("\n}\n", 1)[0]
+    assert "animation: none !important;" in reduced
